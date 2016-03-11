@@ -8,6 +8,10 @@
 </head>
 <body>
 
+<% if user_signed_in? %>
+  <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></p>
+<% end %>
+
 <% if notice %>
 
   <p class="alert alert-notice"><%= notice %></p>
