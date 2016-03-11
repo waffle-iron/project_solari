@@ -1,0 +1,18 @@
+現状
+/adminで管理画面に行ける
+
+
+http://qiita.com/yu_0105/items/08d8054699e328f36c16
+を参考に環境構築
+
+mysqlにsolari@localhostを作成して全権限を付与
+project_solari_developmentとproject_solari_testのデータベースを追加
+
+bundle exec rails s で起動する
+
+http://ace-crc.hatenablog.com/entry/2015/05/10/145806の通りに進行
+パスワードはurgod_shimaneで統一
+
+devise関係で参考にしたページたち
+http://qiita.com/shizuma/items/c8c2e71af8c1dcf3d1c2
+http://qiita.com/cigalecigales/items/73d7bd7ec59a001ccd74
