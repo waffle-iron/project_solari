@@ -1,1 +1,7 @@
 <h1>こんにちは、<%= current_user.user_name %>さん</h1>
+
+<h2>所属チーム</h2>
+
+<% current_user.teams.each do |team| %>
+	<div><%= link_to team.name, team_path(team.id) %></div>
+<% end %>

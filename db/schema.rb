@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160314073038) do
+ActiveRecord::Schema.define(version: 20160314081330) do
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 20160314073038) do
   create_table "roles_users", id: false, force: :cascade do |t|
     t.integer "user_id", limit: 4, null: false
     t.integer "role_id", limit: 4, null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "teams_users", force: :cascade do |t|
+    t.integer "user_id", limit: 4
+    t.integer "team_id", limit: 4
   end
 
   create_table "users", force: :cascade do |t|
@@ -43,5 +54,10 @@ ActiveRecord::Schema.define(version: 20160314073038) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "users_teams", force: :cascade do |t|
+    t.integer "user_id", limit: 4
+    t.integer "team_id", limit: 4
+  end
 
 end

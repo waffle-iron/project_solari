@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   
   has_and_belongs_to_many :roles
+  has_and_belongs_to_many :teams
   
   def has_role?(name)
     self.roles.where(name: name).length > 0
