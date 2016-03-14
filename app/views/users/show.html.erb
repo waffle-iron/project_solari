@@ -1,0 +1,16 @@
+<p>
+  <div>
+  	<strong>Name:</strong>
+  	<%= @user.user_name %>
+  </div>
+  <div>
+  	<strong>SummonerName:</strong>
+  	<%= @user.summoner_name %>
+  </div>
+  <div>
+  	<strong>所属チーム</strong>
+  	<% @user.teams.each do |team| %>
+		<div><%= link_to team.name, team_path(team.id) %></div>
+	<% end %>
+  </div>
+</p>

@@ -3,7 +3,15 @@
 <p>
   <strong>Name:</strong>
   <%= @team.name %>
+  <div>TeamMember</div>
+  <% @team.users.each do |user| %>
+	 <div><%=link_to user.user_name, user_path(user.id) %></div>
+  <% end %>
 </p>
+
+<% if user_signed_in? %>
+  <p><%= link_to "チームに参加する", join_team_path(@team), method: :post %></p>
+<% end %>
 
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>

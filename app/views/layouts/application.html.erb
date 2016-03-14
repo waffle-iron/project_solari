@@ -9,6 +9,7 @@
 <body>
 
 <% if user_signed_in? %>
+  <p>あなたは <%= current_user.user_name %></p>
   <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></p>
   <p><%= link_to "編集", edit_user_registration_path, method: :get %></p>
 <% end %>

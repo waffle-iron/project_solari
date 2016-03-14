@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_action :set_team, only: [:show, :edit, :update, :destroy, :join]
 
   # GET /teams
   # GET /teams.json
@@ -58,6 +58,21 @@ class TeamsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to teams_url, notice: 'Team was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def join
+    if @team.users.include?(current_user)
+      respond_to do |format|
+        format.html { redirect_to @team, alert: 'You Already in the team.' }
+        format.json { render :show, status: :unprocessable_entity, location: @team }
+      end
+    else
+      @team.users << current_user
+      respond_to do |format|
+        format.html { redirect_to @team, notice: 'You joined the team.' }
+        format.json { render :show, status: :ok, location: @team }
+      end
     end
   end
 
