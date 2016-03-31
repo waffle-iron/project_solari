@@ -4,4 +4,7 @@
 
 <% current_user.teams.each do |team| %>
 	<div><%= link_to team.name, team_path(team.id) %></div>
-<% end %>
+	<% end %>
+
+<p>your summoner id is <%= @summonerId %></p>
+<p>your summoner level is <%= @summonerLevel %></p>
