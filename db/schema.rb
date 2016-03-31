@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160331182852) do
+ActiveRecord::Schema.define(version: 20160331211401) do
+
+  create_table "achievements", force: :cascade do |t|
+    t.integer  "achievement_type", limit: 4
+    t.string   "name",             limit: 255
+    t.string   "description",      limit: 255
+    t.string   "image",            limit: 255
+    t.integer  "count",            limit: 4
+    t.integer  "difficulty",       limit: 4
+    t.string   "requirement",      limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  create_table "achievements_users", id: false, force: :cascade do |t|
+    t.integer "user_id",        limit: 4, null: false
+    t.integer "achievement_id", limit: 4, null: false
+  end
+
+  add_index "achievements_users", ["achievement_id"], name: "index_achievements_users_on_achievement_id", using: :btree
+  add_index "achievements_users", ["user_id"], name: "index_achievements_users_on_user_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -55,6 +75,14 @@ ActiveRecord::Schema.define(version: 20160331182852) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "users_achievements", id: false, force: :cascade do |t|
+    t.integer "user_id",        limit: 4, null: false
+    t.integer "achievement_id", limit: 4, null: false
+  end
+
+  add_index "users_achievements", ["achievement_id"], name: "index_users_achievements_on_achievement_id", using: :btree
+  add_index "users_achievements", ["user_id"], name: "index_users_achievements_on_user_id", using: :btree
 
   create_table "users_teams", force: :cascade do |t|
     t.integer "user_id", limit: 4
