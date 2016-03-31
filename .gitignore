@@ -11,5 +11,6 @@
 /log/*
 !/log/.keep
 /tmp
-/vendor/bundle
-/vender/bundle
+
+/vendor/bundle/ruby/*/*/*
+!/vendor/bundle/ruby/*/gems/taric-0.5.1

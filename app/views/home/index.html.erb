@@ -3,8 +3,15 @@
 <h2>所属チーム</h2>
 
 <% current_user.teams.each do |team| %>
-	<div><%= link_to team.name, team_path(team.id) %></div>
-	<% end %>
+<div><%= link_to team.name, team_path(team.id) %></div>
+<% end %>
 
-<p>your summoner id is <%= @summonerId %></p>
-<p>your summoner level is <%= @summonerLevel %></p>
+<h2>サモナー情報</h2>
+<table border="1">
+  <% @summonerInfo.each do | key, val | %>
+  <tr>
+	<th><%= key %></th>
+	<th><%= val %></th>
+  </tr>
+  <% end %>
+</table>

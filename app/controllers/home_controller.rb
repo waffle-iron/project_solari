@@ -1,13 +1,10 @@
 class HomeController < ApplicationController
 
 	def index
-      client = Taric.client(region: :na)
-      userName = "javasparrow"
+      client = Taric.client(region: :jp)
+      userName = current_user.summoner_name
       data = client.summoners_by_names(summoner_names: userName)
-      p data.body
-      @summonerId = data.body[userName]["id"]
-      @summonerLevel = data.body[userName]["summonerLevel"]
-#      {"javasparrow"=>{"id"=>58430999, "name"=>"Javasparrow", "profileIconId"=>28, "summonerLevel"=>22, "revisionDate"=>1427650868000}}
+      @summonerInfo = data.body[userName]
 	end
 
 end
