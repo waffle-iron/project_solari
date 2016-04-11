@@ -10,7 +10,7 @@
 #Role.create!  name: "admin"
 User.create!( user_name:             "admin",
               email:                 "admin@example.com",
-              summoner_name:         "marpore",
+              summoner_name:         "javaspparow",
               champion_role:         0,
               password:              "urgod_shimane",
               password_confirmation: "urgod_shimane")
