@@ -8,7 +8,7 @@ module Taric
       BASE_STATIC_URL = "https://global.api.pvp.net/api/lol/static-data/{region}/#{VERSION}"
 
       STATIC_CHAMPIONS =  EndpointTemplate.new(template_url: "#{BASE_STATIC_URL}/champion{?api_key,dataById,champData,locale,version}")
-      STATIC_CHAMPION =  EndpointTemplate.new(template_url: "#{BASE_STATIC_URL}/champion/{id}{?api_key,locale,version}")
+      STATIC_CHAMPION =  EndpointTemplate.new(template_url: "#{BASE_STATIC_URL}/champion/{id}{?api_key,champData,locale,version}")
       STATIC_ITEMS =  EndpointTemplate.new(template_url: "#{BASE_STATIC_URL}/item{?api_key,itemListData,locale,version}")
       STATIC_ITEM =  EndpointTemplate.new(template_url: "#{BASE_STATIC_URL}/item/{id}{?api_key,itemData,locale,version}")
       STATIC_LANGUAGE_STRINGS =  EndpointTemplate.new(template_url: "#{BASE_STATIC_URL}/language-strings{?api_key,locale,version}")

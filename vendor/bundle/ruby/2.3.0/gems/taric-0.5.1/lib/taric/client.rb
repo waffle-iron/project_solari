@@ -19,8 +19,7 @@ module Taric
         tr: {region: 'tr'.freeze, platform_id: 'TR1', host: 'tr.api.pvp.net'},
         ru: {region: 'ru'.freeze, platform_id: 'RU', host: 'ru.api.pvp.net'},
         pbe: {region: 'pbe'.freeze, platform_id: 'PBE1', host: 'pbe.api.pvp.net'},
-#        jp: {region: 'jp'.freeze, platform_id: 'JP', host: 'jp.api.pvp.net'},
-        jp: {region: 'jp'.freeze, platform_id: 'JP', host: 'global.api.pvp.net'}
+        jp: {region: 'jp'.freeze, platform_id: 'JP', host: 'jp.api.pvp.net'},
     }.freeze
 
     REGION_ENDPOINT_STRING_KEYS = REGION_ENDPOINT_INFO.keys.map(&:to_s).freeze

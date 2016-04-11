@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  game_id: 1
+  champion_id: 1
+  create_date: 
+  game_mode: MyString
+  spell_1: 1
+  spell_2: 1
+  item1: 1
+  item2: 1
+  item3: 1
+  item4: 1
+  item5: 1
+  item6: 1
+  time_played: 1
+  death: 1
+  kill: 1
+  assist: 1
+
+two:
+  game_id: 1
+  champion_id: 1
+  create_date: 
+  game_mode: MyString
+  spell_1: 1
+  spell_2: 1
+  item1: 1
+  item2: 1
+  item3: 1
+  item4: 1
+  item5: 1
+  item6: 1
+  time_played: 1
+  death: 1
+  kill: 1
+  assist: 1
