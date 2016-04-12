@@ -6,6 +6,10 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.3.13', '< 0.5'
+
+#bootstrap with sass
+gem 'bootstrap-sass', '~> 3.3.6'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -57,8 +61,9 @@ gem 'rails_admin'
 gem 'yaml_db'
 
 gem 'therubyracer' # javascript runtime。lessをコンパイルするために必要
-gem 'less-rails' # Railsでlessを使えるようにする。Bootstrapがlessで書かれているため
-gem 'twitter-bootstrap-rails' # Bootstrapの本体
+
+#gem 'less-rails' # Railsでlessを使えるようにする。Bootstrapがlessで書かれているため
+#gem 'twitter-bootstrap-rails' # Bootstrapの本体
 
 gem 'taric' # riot api for ruby (https://github.com/josephyi/taric)
 gem 'typhoeus'
