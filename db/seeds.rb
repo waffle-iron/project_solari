@@ -16,10 +16,11 @@ User.create!( user_name:             "admin",
               password_confirmation: "urgod_shimane")
             .roles.create id: 1, name:"admin"
 
-Achievement.create!(achievement_type:        :create_team,
-					name:        "チームを作成する",
-					description: "チームを作成してみよう！",
+Achievement.create!(achievement_type:        :triple_kill_aram,
+					name:        "トリプルキル",
+					description: "ARAMでトリプルキルを達成しよう！",
 					image:       "hoge.jpg",
 					count:        0,
 					difficulty:  :easy,
-					requirement: "チームを作る")
+					requirement: "トリプルキル",
+					gametype: :aram)

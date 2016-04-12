@@ -37,10 +37,40 @@ class HomeController < ApplicationController
               })
             current_user.games << gameRecord
             current_user.save
+            checkAchievements(game: gameRecord, user: current_user, raw: game)
           end
         end
       }
 
 	end
+
+  private
+
+  def checkAchievements(user: user, game: game, raw: raw)
+    achievements = Achievement.aram
+    achievements.each do |achievement|
+      if checkAchievement(game: game, achievement: achievement, raw: raw)
+        if(user.achievements.find_by(:achievement_type => achievement[:achievement_type]).blank?)
+          user.achievements << achievement
+          user.save
+        end
+        achievementRelation = AchievementUser.find_by(:user => user, :achievement => achievement)
+        achievementRelation.game << game
+      end
+    end
+  end
+
+  def checkAchievement(game: game, achievement: achievement, raw: raw)
+    
+    case achievement.achievement_type.to_sym
+      when :triple_kill_aram then
+        if game.game_mode == "ARAM_UNRANKED_5x5"
+          if raw["stats"]["doubleKills"]
+            return true
+          end
+        end
+        return false
+    end
+  end
 
 end

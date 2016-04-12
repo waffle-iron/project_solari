@@ -11,33 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160411032204) do
+ActiveRecord::Schema.define(version: 20160412143732) do
 
-  create_table "achievements", force: :cascade do |t|
-    t.integer  "achievement_type", limit: 4
-    t.string   "name",             limit: 255
-    t.string   "description",      limit: 255
-    t.string   "image",            limit: 255
-    t.integer  "count",            limit: 4
-    t.integer  "difficulty",       limit: 4
-    t.string   "requirement",      limit: 255
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-  end
-
-  create_table "achievements_users", id: false, force: :cascade do |t|
-    t.integer "user_id",        limit: 4, null: false
-    t.integer "achievement_id", limit: 4, null: false
-  end
-
-  add_index "achievements_users", ["achievement_id"], name: "index_achievements_users_on_achievement_id", using: :btree
-  add_index "achievements_users", ["user_id"], name: "index_achievements_users_on_user_id", using: :btree
-
-  create_table "games", force: :cascade do |t|
+  create_table "Games", force: :cascade do |t|
     t.integer  "game_id",     limit: 4
     t.integer  "champion_id", limit: 4
     t.datetime "create_date"
-    t.string   "game_mode",   limit: 255
+    t.integer  "game_mode",   limit: 4
     t.integer  "spell_1",     limit: 4
     t.integer  "spell_2",     limit: 4
     t.integer  "item1",       limit: 4
@@ -50,11 +30,47 @@ ActiveRecord::Schema.define(version: 20160411032204) do
     t.integer  "death",       limit: 4
     t.integer  "kill",        limit: 4
     t.integer  "assist",      limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.integer  "item0",       limit: 4
     t.boolean  "win"
   end
+
+  create_table "achievement_users", force: :cascade do |t|
+    t.integer  "achievement_id", limit: 4
+    t.integer  "user_id",        limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "achievement_users_games", force: :cascade do |t|
+    t.integer "achievement_user_id", limit: 4
+    t.integer "game_id",             limit: 4
+  end
+
+  add_index "achievement_users_games", ["achievement_user_id"], name: "index_achievement_users_games_on_achievement_user_id", using: :btree
+  add_index "achievement_users_games", ["game_id"], name: "index_achievement_users_games_on_game_id", using: :btree
+
+  create_table "achievements", force: :cascade do |t|
+    t.integer  "achievement_type", limit: 4
+    t.string   "name",             limit: 255
+    t.string   "description",      limit: 255
+    t.string   "image",            limit: 255
+    t.integer  "count",            limit: 4
+    t.integer  "difficulty",       limit: 4
+    t.string   "requirement",      limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "gametype",         limit: 4
+  end
+
+  create_table "achievements_users", id: false, force: :cascade do |t|
+    t.integer "user_id",        limit: 4, null: false
+    t.integer "achievement_id", limit: 4, null: false
+  end
+
+  add_index "achievements_users", ["achievement_id"], name: "index_achievements_users_on_achievement_id", using: :btree
+  add_index "achievements_users", ["user_id"], name: "index_achievements_users_on_user_id", using: :btree
 
   create_table "games_users", id: false, force: :cascade do |t|
     t.integer "game_id", limit: 4
@@ -120,6 +136,8 @@ ActiveRecord::Schema.define(version: 20160411032204) do
     t.integer "team_id", limit: 4
   end
 
+  add_foreign_key "achievement_users_games", "achievement_users"
+  add_foreign_key "achievement_users_games", "games"
   add_foreign_key "games_users", "games"
   add_foreign_key "games_users", "users"
 end
