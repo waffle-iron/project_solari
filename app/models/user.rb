@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
   
   has_and_belongs_to_many :roles
   has_and_belongs_to_many :teams
-  has_and_belongs_to_many :achievements
+  has_many :achievement_users
+  has_many :achievements, through: :achievement_users
   has_and_belongs_to_many :games
   
   enum champion_role: { fill: 0, bot: 1, support: 2, mid: 3, top: 4, jungle: 5}
