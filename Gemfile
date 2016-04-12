@@ -62,3 +62,6 @@ gem 'twitter-bootstrap-rails' # Bootstrapの本体
 
 gem 'taric' # riot api for ruby (https://github.com/josephyi/taric)
 gem 'typhoeus'
+
+gem 'websocket-rails'
+gem 'faye-websocket', '0.10.0'
