@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap
+//  require twitter/bootstrap
+// bootstrap-sprockets and bootstrap should not both be included in application.js
+//= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
 //= require websocket_rails/main

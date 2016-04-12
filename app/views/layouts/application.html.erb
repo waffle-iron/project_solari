@@ -7,12 +7,27 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<% if user_signed_in? %>
-  <p>あなたは <%= current_user.user_name %></p>
-  <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></p>
-  <p><%= link_to "編集", edit_user_registration_path, method: :get %></p>
-<% end %>
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= link_to "solari", '#', id: "logo" %>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Home",   '#' %></li>
+        <li><%= link_to "Help",   '#' %></li>
+        <% if user_signed_in? %>
+        <li><%= link_to current_user.user_name , edit_user_registration_path, method: :get %></li>
+        <li>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+        </li>
+        <!--
+          <%# else %>
+          <li><%= link_to "Log in", '#' %></li>
+        -->
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>
 
 <% if notice %>
 
