@@ -63,9 +63,37 @@ class HomeController < ApplicationController
   def checkAchievement(game: game, achievement: achievement, raw: raw)
     
     case achievement.achievement_type.to_sym
-      when :triple_kill_aram then
+      when :double_kill_aram then
         if game.game_mode == "ARAM_UNRANKED_5x5"
           if raw["stats"]["doubleKills"]
+            return true
+          end
+        end
+        return false
+      when :double_kill_aram then
+        if game.game_mode == "ARAM_UNRANKED_5x5"
+          if raw["stats"]["doubleKills"]
+            return true
+          end
+        end
+        return false
+      when :triple_kill_aram then
+        if game.game_mode == "ARAM_UNRANKED_5x5"
+          if raw["stats"]["tripleKills"]
+            return true
+          end
+        end
+        return false
+      when :quadra_kill_aram then
+        if game.game_mode == "ARAM_UNRANKED_5x5"
+          if raw["stats"]["quadraKills"]
+            return true
+          end
+        end
+        return false
+      when :penta_kill_aram then
+        if game.game_mode == "ARAM_UNRANKED_5x5"
+          if raw["stats"]["pentaKills"]
             return true
           end
         end

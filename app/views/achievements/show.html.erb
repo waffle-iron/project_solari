@@ -35,5 +35,17 @@
   <%= @achievement.requirement %>
 </p>
 
+
+<% if @games %>
+<table>
+<tr>
+<% @games.each do |game| %>
+  <%= render :partial => 'layouts/game_row' , :locals => { game: game, image_url: @image_url } %>
+<% end %>
+</table>
+</tr>
+<% end %>
+
+
 <%= link_to 'Edit', edit_achievement_path(@achievement) %> |
 <%= link_to 'Back', achievements_path %>

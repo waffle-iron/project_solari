@@ -10,6 +10,13 @@ class AchievementsController < ApplicationController
   # GET /achievements/1
   # GET /achievements/1.json
   def show
+    middle = AchievementUser.find_by(achievement: @achievement, user: current_user)
+    if(middle)
+      @games = middle.game
+    end
+    client = Taric.client(region: :jp)
+    realm = client.static_realm
+    @image_url = realm.body["cdn"] + "/" + realm.body["v"]
   end
 
   # GET /achievements/new
