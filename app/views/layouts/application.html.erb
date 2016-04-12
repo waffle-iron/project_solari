@@ -7,41 +7,50 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
-    <%= link_to "solari", '#', id: "logo" %>
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home",   '#' %></li>
-        <li><%= link_to "Help",   '#' %></li>
+  <nav class="navbar navbar-default">
+  	<div class="container-fluid">
+  		<div class="navbar-header">
+  			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample">
+  				<span class="sr-only">Toggle navigation</span>
+  				<span class="glyphicon glyphicon-align-justify"></span>
+  			</button>
+
+        <%= link_to "solari", root_path, id: "logo", class: "navbar-brand" %>
+
+  		</div>
+      <div class="collapse navbar-collapse" id="navbarEexample">
+        <ul class="nav navbar-nav">
+          <li><%= link_to "achievements", achievements_path %></li>
+          <li><%= link_to "teams", teams_path %></li>
+        </ul>
         <% if user_signed_in? %>
-        <li><%= link_to current_user.user_name , edit_user_registration_path, method: :get %></li>
-        <li>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-        </li>
-        <!--
-          <%# else %>
-          <li><%= link_to "Log in", '#' %></li>
-        -->
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "navbar-text navbar-right"  %></li>
+          <%= link_to "user: "+current_user.user_name , edit_user_registration_path, method: :get, class: "navbar-text navbar-right"%>
+        <% else %>
+          <%= link_to "Log in", user_session_path, class: "navbar-text navbar-right" %>
         <% end %>
-      </ul>
-    </nav>
+      </div>
+
+
+  	</div>
+  </nav>
   </div>
-</header>
+  <div>
+    <% if notice %>
 
-<% if notice %>
+    <p class="alert alert-notice"><%= notice %></p>
 
-  <p class="alert alert-notice"><%= notice %></p>
+    <% end %>
 
-<% end %>
+    <% if alert %>
 
-<% if alert %>
+    <p class="alert alert-error"><%= alert %></p>
 
-  <p class="alert alert-error"><%= alert %></p>
+    <% end %>
 
-<% end %>
-
-<%= yield %>
+    <%= yield %>
+  </div>
+</div>
 
 </body>
 </html>
