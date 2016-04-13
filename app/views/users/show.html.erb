@@ -1,8 +1,58 @@
+<div class="jumbotron">
+	<div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h1><%= @user.user_name %></h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="progress">
+        	<div class="progress-bar text-left" role="progressbar" style="width: 100%;">
+            <%# todo: check assignment summonerInfo%>
+            <span class="badge text-left"><%#= @user.summoner_level %>30</span>
+          </div>
+        </div>
+      </div>
+    </div>
+	</div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <%# todo: check assignment summonerInfo%>
+      <div class="btn-group" role="group">
+        <%= link_to sanitize('
+          <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-wrench">
+              編集
+              </span>
+          </button>
+        ') , edit_user_registration_path, method: :get, class: "btn btn-default", role: "button"%>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <table class="table table-stripped table-bordered table-hover">
+        <tr><th><strong>所属チーム</strong></th></tr>
+      	<% @user.teams.each do |team| %>
+    		  <tr><td><%= link_to team.name, team_path(team.id) %></td></tr>
+    	  <% end %>
+        <% if @user.teams.empty? %>
+          <tr><td>所属チームなし</td></tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
 <p>
   <div>
   	<strong>Name:</strong>
   	<%= @user.user_name %>
   </div>
+
   <div>
   	<strong>SummonerName:</strong>
   	<%= @user.summoner_name %>
