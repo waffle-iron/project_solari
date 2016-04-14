@@ -7,6 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%# ---header menu---%>
   <nav class="navbar navbar-default">
   	<div class="container-fluid">
   		<div class="navbar-header">
@@ -14,40 +15,32 @@
   				<span class="sr-only">Toggle navigation</span>
   				<span class="glyphicon glyphicon-align-justify"></span>
   			</button>
-
         <%= link_to "solari", root_path, id: "logo", class: "navbar-brand" %>
-
   		</div>
       <div class="collapse navbar-collapse" id="navbarEexample">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav navbar-left">
           <li><%= link_to "achievements", achievements_path %></li>
           <li><%= link_to "teams", teams_path %></li>
         </ul>
-        <% if user_signed_in? %>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "navbar-text navbar-right"  %></li>
-          <%= link_to "user: "+current_user.user_name , edit_user_registration_path, method: :get, class: "navbar-text navbar-right"%>
-        <% else %>
-          <%= link_to "Log in", user_session_path, class: "navbar-text navbar-right" %>
-        <% end %>
+        <ul class="nav navbar-nav navbar-right">
+          <% if user_signed_in? %>
+          <li><%= link_to "user: "+current_user.user_name , current_user, method: :get %></li>
+          <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+          <% else %>
+          <li><%= link_to "Log in", user_session_path, class: "navbar-text navbar-right" %></li>
+          <% end %>
+        </ul>
       </div>
-
-
   	</div>
   </nav>
-  </div>
-  <div>
+
+  <div class="container-fluid" id="main">
     <% if notice %>
-
-    <p class="alert alert-notice"><%= notice %></p>
-
+      <p class="alert alert-info"><span class="glyphicon glyphicon-info-sign">　</span><%= notice %></p>
     <% end %>
-
     <% if alert %>
-
-    <p class="alert alert-error"><%= alert %></p>
-
+      <p class="alert alert-warning"><span class="glyphicon glyphicon-info-sign">　</span><%= alert %></p>
     <% end %>
-
     <%= yield %>
   </div>
 </div>
