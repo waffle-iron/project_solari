@@ -12,5 +12,9 @@
 !/log/.keep
 /tmp
 
+# ignore bundle except taric
 /vendor/bundle/ruby/*/*/*
 !/vendor/bundle/ruby/*/gems/taric-0.5.1
+
+# api keys
+config/secrets.yml
