@@ -10,6 +10,8 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
+    session[:user_id] = current_user.id
+    session[:team_id] = params[:id]
   end
 
   # GET /teams/new

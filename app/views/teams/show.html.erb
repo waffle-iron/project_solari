@@ -17,6 +17,26 @@
 <%= link_to 'Back', teams_path %>
 
 <h2>チャット</h2>
+
+<!-- jsに食わせたい情報などなど -->
+<div id="user_id" style="display:none;"><%= current_user.id %></div>
+<div id="team_id" style="display:none;"><%= session[:team_id] %></div>
+
+<!-- チャットのタイムラインとかテキストボックスとか -->
+<div id="timeline" style="margin:20px;">
+  <ul id="chat" data-uri="<%= request.host %>:3000/websocket">
+  </ul>
+</div>
+
+<hr/>
+<div>
+ <form class="form-horizontal">
+   <input type="text" class="form-control" id="msgbody" />
+   <input type="button" class="btn btn-primary" id="send" value="送信"/>
+ </form>
+</div>
+
+<h2>チャットver.0</h2>
 <!-- チャット表示部分 -->
 <ul id="chat_area">
 </ul>
@@ -26,6 +46,7 @@
 <input id="send" type="button" value="send">
 
 <script>
+/*
   var ws_rails = new WebSocketRails("localhost:3000/websocket");
   var websocket_chat_channel = ws_rails.subscribe("teamchat_channel<%= @team.id %>");
 
@@ -44,5 +65,5 @@
     websocket_chat_channel.trigger("websocket_chat", {teamID: <%= @team.id %>, user_name: <%= current_user.id %>, body: comment});
     document.getElementById("comment").value = "";
   }
-
+*/
 </script>
