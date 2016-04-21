@@ -14,6 +14,6 @@ WebsocketRails::EventMap.describe do
 
   # websocket_chatイベントのマッピング
   # subscribeの第一引数がイベント名、第二引数にコントローラやアクション
+  subscribe :client_connected, to: WebsocketChatController, with_method: :connect_user
   subscribe :websocket_chat, to: WebsocketChatController, with_method: :message_recieve
-
 end
