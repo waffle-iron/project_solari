@@ -11,30 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412184932) do
-
-  create_table "Games", force: :cascade do |t|
-    t.integer  "game_id",     limit: 4
-    t.integer  "champion_id", limit: 4
-    t.datetime "create_date"
-    t.integer  "game_mode",   limit: 4
-    t.integer  "spell_1",     limit: 4
-    t.integer  "spell_2",     limit: 4
-    t.integer  "item1",       limit: 4
-    t.integer  "item2",       limit: 4
-    t.integer  "item3",       limit: 4
-    t.integer  "item4",       limit: 4
-    t.integer  "item5",       limit: 4
-    t.integer  "item6",       limit: 4
-    t.integer  "time_played", limit: 4
-    t.integer  "death",       limit: 4
-    t.integer  "kill",        limit: 4
-    t.integer  "assist",      limit: 4
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.integer  "item0",       limit: 4
-    t.boolean  "win"
-  end
+ActiveRecord::Schema.define(version: 20160422063613) do
 
   create_table "achievement_users", force: :cascade do |t|
     t.integer  "achievement_id", limit: 4
@@ -73,6 +50,29 @@ ActiveRecord::Schema.define(version: 20160412184932) do
   add_index "achievements_users", ["achievement_id"], name: "index_achievements_users_on_achievement_id", using: :btree
   add_index "achievements_users", ["user_id"], name: "index_achievements_users_on_user_id", using: :btree
 
+  create_table "games", force: :cascade do |t|
+    t.integer  "game_id",     limit: 4
+    t.integer  "champion_id", limit: 4
+    t.datetime "create_date"
+    t.integer  "game_mode",   limit: 4
+    t.integer  "spell_1",     limit: 4
+    t.integer  "spell_2",     limit: 4
+    t.integer  "item1",       limit: 4
+    t.integer  "item2",       limit: 4
+    t.integer  "item3",       limit: 4
+    t.integer  "item4",       limit: 4
+    t.integer  "item5",       limit: 4
+    t.integer  "item6",       limit: 4
+    t.integer  "time_played", limit: 4
+    t.integer  "death",       limit: 4
+    t.integer  "kill",        limit: 4
+    t.integer  "assist",      limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "item0",       limit: 4
+    t.boolean  "win"
+  end
+
   create_table "games_users", id: false, force: :cascade do |t|
     t.integer "game_id", limit: 4
     t.integer "user_id", limit: 4
@@ -92,10 +92,19 @@ ActiveRecord::Schema.define(version: 20160412184932) do
     t.integer "role_id", limit: 4, null: false
   end
 
+  create_table "teamchats", force: :cascade do |t|
+    t.integer  "team_id",    limit: 4,     null: false
+    t.integer  "user_id",    limit: 4,     null: false
+    t.text     "body",       limit: 65535, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "teams", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",            limit: 255
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "teamchats_count", limit: 4,   default: 0
   end
 
   create_table "teams_users", force: :cascade do |t|

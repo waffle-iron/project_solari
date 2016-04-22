@@ -17,18 +17,26 @@
 <%= link_to 'Back', teams_path %>
 
 <h2>チャット</h2>
+<p>
+  there are <%= @chat_count %> chat(s) before.
+</p>
 
 <!-- jsに食わせたい情報などなど -->
 <div id="user_id" style="display:none;"><%= current_user.id %></div>
 <div id="team_id" style="display:none;"><%= session[:team_id] %></div>
 
-<!-- チャットのタイムラインとかテキストボックスとか -->
+<!-- チャットのタイムラインとログ -->
 <div id="timeline" style="margin:20px;">
   <ul id="chat" data-uri="<%= request.host %>:3000/websocket">
+  <% @chat_log.reverse_each do |x| %>
+    <li><%= x.updated_at %>　<%= x.user_id %>: <%= x.body %></li>
+  <% end %>
   </ul>
 </div>
 
 <hr/>
+
+<!-- テキストボックス -->
 <div>
  <form class="form-horizontal">
    <input type="text" class="form-control" id="msgbody" />

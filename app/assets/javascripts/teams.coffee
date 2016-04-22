@@ -24,6 +24,8 @@ class @ChatClass
     user_id = $('#user_id').text()
     msg_body = $('#msgbody').val()
     team_id = $('#team_id').text()
+    if msg_body == ""
+      return
     @dispatcher.trigger 'new_message', { user_id: user_id , body: msg_body , team_id: team_id }
     $('#msgbody').val('')
 
