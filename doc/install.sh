@@ -12,8 +12,8 @@ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
 echo 'eval "$(rbenv init -)"' >> ~/.zshrc
 source ~/.zshrc # have to do this to launch rails
-rbenv install -v 2.3.0
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+rbenv install -v 2.3.0
 rbenv global 2.3.0
 ruby -v
 gem install bundle

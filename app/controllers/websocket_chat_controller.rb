@@ -1,3 +1,4 @@
+# coding: utf-8
 # WebsocketRails::BaseControllerを継承
 class WebsocketChatController < WebsocketRails::BaseController
   def initialize_session
@@ -30,5 +31,4 @@ class WebsocketChatController < WebsocketRails::BaseController
     end
 
   end
-
 end
