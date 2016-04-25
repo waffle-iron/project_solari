@@ -3,13 +3,14 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  
+
   has_and_belongs_to_many :roles
   has_and_belongs_to_many :teams
   has_many :achievement_users
   has_many :achievements, through: :achievement_users
   has_and_belongs_to_many :games
-  
+  has_many :teamchats
+
   enum champion_role: { fill: 0, bot: 1, support: 2, mid: 3, top: 4, jungle: 5}
 
   def has_role?(name)

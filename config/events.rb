@@ -12,8 +12,7 @@ WebsocketRails::EventMap.describe do
   #   end
   # The above will handle an event triggered on the client like `product.new`.
 
-  # websocket_chatイベントのマッピング
-  # subscribeの第一引数がイベント名、第二引数にコントローラやアクション
   subscribe :client_connected, to: WebsocketChatController, with_method: :connect_user
-  subscribe :websocket_chat, to: WebsocketChatController, with_method: :message_recieve
+  subscribe :new_message, to: WebsocketChatController, with_method: :new_message
+
 end

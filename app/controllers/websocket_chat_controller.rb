@@ -1,35 +1,34 @@
+# coding: utf-8
 # WebsocketRails::BaseControllerを継承
-
 class WebsocketChatController < WebsocketRails::BaseController
   def initialize_session
-    logger.debug("initialize chat controller")
-#    @redis = Redis.new(:host => "127.0.0.1", :port => 6379)
-#    controller_store[:redis] = @redis
+#    logger.debug("initialize chat controller")
   end
 
   def connect_user
-    logger.debug("connected user")
-    send_message :websocket_chat, "log"
-#    talks = controller_store[:redis].lrange gid, 0,100
-#    talks.each do |message|
-#      msg = ActiveSupport::HashWithIndifferentAccess.new(eval(message))
-#      send_message :new_message, msg
-#    end
+#    logger.debug("connected user")
   end
 
-  def message_recieve
-    # クライアントからのメッセージを取得
-    recieve_message = message()
-    logger.debug("recieve_message#{recieve_message}")
-    time = Time.now
-    puts("time",time,recieve_message)
+  def new_message
+#    logger.debug("Call new_message : #{message}")
+    # if message[:team_id] != session[:team_id] or message[:user_id] != session[:user_id] then
+    #   logger.debug("message is invalid")
+    #   return
+    # end
 
-    # websocket_chatイベントで接続している全クライアントにブロードキャスト
-#    broadcast_message(:websocket_chat, recieve_message)
+    message[:time] = Time.now.to_s
+    WebsocketRails[message[:team_id]].trigger(:new_message, message)
+    # broadcast_message :new_message, message
 
-    # チャンネルごとにブロードキャスト
-    recieve_message[:body] = "^v^"
-    WebSocketRails["teamchat_channel#{recieve_message[:teamID]}"].trigger(:websocket_chat, recieve_message)
+    chat = Teamchat.new
+    chat.user_id = message[:user_id]
+    chat.team_id = message[:team_id]
+    chat.body = message[:body]
+    if chat.save! then
+#      logger.debug("save:"+message)
+    else
+      logger.debug("save failed: "+message)
+    end
 
   end
 end

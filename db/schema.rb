@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412184932) do
+ActiveRecord::Schema.define(version: 20160422063613) do
 
   create_table "achievement_users", force: :cascade do |t|
     t.integer  "achievement_id", limit: 4
@@ -92,10 +92,19 @@ ActiveRecord::Schema.define(version: 20160412184932) do
     t.integer "role_id", limit: 4, null: false
   end
 
+  create_table "teamchats", force: :cascade do |t|
+    t.integer  "team_id",    limit: 4,     null: false
+    t.integer  "user_id",    limit: 4,     null: false
+    t.text     "body",       limit: 65535, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "teams", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",            limit: 255
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "teamchats_count", limit: 4,   default: 0
   end
 
   create_table "teams_users", force: :cascade do |t|

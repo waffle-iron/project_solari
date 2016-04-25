@@ -10,6 +10,12 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
+    page_size = 10
+    page_num = 0 # read N from URL http*.html?log=N
+    @chat_log = @team.teamchats.order(updated_at: :desc).limit(page_size).offset(page_size * page_num) # read from DB
+    @chat_count = @team.teamchats.size
+    session[:user_id] = current_user.id
+    session[:team_id] = params[:id]
   end
 
   # GET /teams/new
