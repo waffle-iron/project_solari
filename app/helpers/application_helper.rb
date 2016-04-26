@@ -19,4 +19,8 @@ module ApplicationHelper
     item = client.static_item(id: id, item_data_option: "image")
     image_tag image_url + "/img/item/" + item.body["image"]["full"]
   end
+
+  def getMatchHistoryLink(game_id, summoner_id)
+    return "http://matchhistory.jp.leagueoflegends.com/ja/#match-details/JP1/" + game_id.to_s + "/" + summoner_id.to_s + "?tab=overview"
+  end
 end
