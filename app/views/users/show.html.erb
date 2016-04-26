@@ -31,6 +31,15 @@
           </button>
         ') , edit_user_registration_path, method: :get, class: "btn btn-default", role: "button"%>
       </div>
+			<div class="btn-group" role="group">
+        <%= link_to sanitize('
+          <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-refresh">
+              更新
+              </span>
+          </button>
+        ') , refresh_user_path(@user), method: :post, class: "btn btn-default", role: "button"%>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -63,4 +72,14 @@
 		<div><%= link_to team.name, team_path(team.id) %></div>
 	<% end %>
   </div>
+</p>
+<p>
+	<div>
+		<strong>MatchHistory</strong>
+		<% @user.games.each do |game| %>
+		<div>
+			<%= link_to game.game_id, getMatchHistoryLink(game.game_id, @summonerInfo["id"]) %>
+		</div>
+		<% end %>
+	</div>
 </p>
