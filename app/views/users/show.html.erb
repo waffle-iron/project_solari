@@ -83,3 +83,16 @@
 		<% end %>
 	</div>
 </p>
+
+<p>
+	<strong>Achievements</strong>
+	<div class="container">
+    <div class="row">
+			<% @user.achievements.each do |achievement| %>
+				<div class="col-xs-6 col-md-3">
+					<%= render :partial => 'achievements/achievement_small_fragment' , :locals => { achievement: achievement } %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</p>
