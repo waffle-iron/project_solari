@@ -1,0 +1,80 @@
+<p>
+  <div>
+    <strong>平日</strong>
+    <div class="progress">
+      <% if user.play_weekday_morning %>
+      <div class="progress-bar playtime-active" role="progressbar" style="width:25%">
+      <% else %>
+      <div class="progress-bar playtime-notactive" role="progressbar" style="width:25%">
+      <% end %>
+        朝
+      </div>
+      <% if user.play_weekday_noon %>
+      <div class="progress-bar playtime-active" role="progressbar" style="width:25%">
+      <% else %>
+      <div class="progress-bar playtime-notactive" role="progressbar" style="width:25%">
+      <% end %>
+        昼
+      </div>
+      <% if user.play_weekday_night %>
+      <div class="progress-bar playtime-active" role="progressbar" style="width:25%">
+      <% else %>
+      <div class="progress-bar playtime-notactive" role="progressbar" style="width:25%">
+      <% end %>
+        夜
+      </div>
+      <% if user.play_weekday_latenight %>
+      <div class="progress-bar playtime-active" role="progressbar" style="width:25%">
+      <% else %>
+      <div class="progress-bar playtime-notactive" role="progressbar" style="width:25%">
+      <% end %>
+        夜中
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <strong>休日</strong>
+    <div class="progress">
+      <% if user.play_holyday_morning %>
+      <div class="progress-bar playtime-active" role="progressbar" style="width:25%">
+      <% else %>
+      <div class="progress-bar playtime-notactive" role="progressbar" style="width:25%">
+      <% end %>
+        朝
+      </div>
+      <% if user.play_holyday_noon %>
+      <div class="progress-bar playtime-active" role="progressbar" style="width:25%">
+      <% else %>
+      <div class="progress-bar playtime-notactive" role="progressbar" style="width:25%">
+      <% end %>
+        昼
+      </div>
+      <% if user.play_holyday_night %>
+      <div class="progress-bar playtime-active" role="progressbar" style="width:25%">
+      <% else %>
+      <div class="progress-bar playtime-notactive" role="progressbar" style="width:25%">
+      <% end %>
+        夜
+      </div>
+      <% if user.play_holyday_latenight %>
+      <div class="progress-bar playtime-active" role="progressbar" style="width:25%">
+      <% else %>
+      <div class="progress-bar playtime-notactive" role="progressbar" style="width:25%">
+      <% end %>
+        夜中
+      </div>
+    </div>
+  </div>
+</p>
+
+<script>
+  $('.playtime-active').css({
+    'background-image': 'none',
+    'background-color': 'red'
+  });
+  $('.playtime-notactive').css({
+    'background-image': 'none',
+    'background-color': 'gray'
+  });
+</script>
