@@ -27,7 +27,8 @@ class User < ActiveRecord::Base
     @gameInfo.each {|game_raw|
       stats = game_raw["stats"]
       if Game.find_by(:game_id => game_raw["gameId"]).blank?
-        if game_raw["subType"] == "ARAM_UNRANKED_5x5"
+        #TODO 絞り込み条件どうする？
+        if game_raw["subType"] == "ARAM_UNRANKED_5x5" || true
           gameRecord = Game.create!({
             :game_id => game_raw["gameId"],
             :champion_id => game_raw["championId"],
@@ -50,7 +51,7 @@ class User < ActiveRecord::Base
             })
           games << gameRecord
           save
-          checkAchievements(game: gameRecord, rawData: game_raw)
+          checkAchievements(gameRecord, game_raw)
         end
       end
     }
@@ -58,10 +59,10 @@ class User < ActiveRecord::Base
 
   private
 
-  def checkAchievements(game: gameRecord, rawData: raw)
+  def checkAchievements(gameRecord, raw)
     achievements = Achievement.aram
     achievements.each do |achievement|
-      if checkAchievement(game: gameRecord, target_achievement: achievement, rawData: raw)
+      if checkAchievement(gameRecord, achievement, raw)
         if(achievements.find_by(:achievement_type => achievement[:achievement_type]).blank?)
           achievements << achievement
           save
@@ -72,7 +73,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def checkAchievement(game: gameRecord, target_achievement: achievement, rawData: raw)
+  def checkAchievement(gameRecord, achievement, raw)
 
     case achievement.achievement_type.to_sym
       when :double_kill_aram then

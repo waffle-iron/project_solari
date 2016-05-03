@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     userName = @user.summoner_name
     data = client.summoners_by_names(summoner_names: userName)
     @summonerInfo = data.body[userName]
+		@games = @user.games.order("create_date DESC")
 	end
 
   def refresh

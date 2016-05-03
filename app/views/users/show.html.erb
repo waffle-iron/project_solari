@@ -73,16 +73,14 @@
 	<% end %>
   </div>
 </p>
-<p>
-	<div>
-		<strong>MatchHistory</strong>
-		<% @user.games.each do |game| %>
-		<div>
-			<%= link_to game.game_id, getMatchHistoryLink(game.game_id, @summonerInfo["id"]) %>
-		</div>
-		<% end %>
-	</div>
-</p>
+
+<table>
+<tr>
+<% @games.each do |game| %>
+  <%= render :partial => 'layouts/game_row' , :locals => { game: game, summonerInfo: @summonerInfo} %>
+<% end %>
+</tr>
+</table>
 
 <p>
 	<strong>Achievements</strong>
@@ -90,7 +88,7 @@
     <div class="row">
 			<% @user.achievements.each do |achievement| %>
 				<div class="col-xs-6 col-md-3">
-					<%= render :partial => 'achievements/achievement_small_fragment' , :locals => { achievement: achievement } %>
+					<%= render :partial => 'achievements/achievement_small_fragment' , :locals => {achievement: achievement} %>
 				</div>
 			<% end %>
 		</div>

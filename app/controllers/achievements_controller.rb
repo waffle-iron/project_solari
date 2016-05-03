@@ -10,13 +10,14 @@ class AchievementsController < ApplicationController
   # GET /achievements/1
   # GET /achievements/1.json
   def show
+    client = Taric.client(region: :jp)
+    userName = current_user.summoner_name
+    data = client.summoners_by_names(summoner_names: userName)
+    @summonerInfo = data.body[userName]
     middle = AchievementUser.find_by(achievement: @achievement, user: current_user)
     if(middle)
-      @games = middle.game
+      @games = middle.game.order("create_date DESC")
     end
-    client = Taric.client(region: :jp)
-    realm = client.static_realm
-    @image_url = realm.body["cdn"] + "/" + realm.body["v"]
   end
 
   # GET /achievements/new

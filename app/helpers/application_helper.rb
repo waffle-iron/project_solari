@@ -1,23 +1,17 @@
 module ApplicationHelper
-  def getChampionImageTagById(image_url, id)
-    client = Taric.client(region: :jp)
-    champion = client.static_champion(id: id, champ_data_option: "image")
-    image_tag image_url + "/img/champion/" + champion.body["image"]["full"]
+  def getChampionImageTagById(id)
+    image_tag "championImage/" + id.to_s + ".png"
   end
 
-  def getSummonerSpellImageTagById(image_url, id)
-    client = Taric.client(region: :jp)
-    summonerSpell = client.static_summoner_spell(id: id, spell_data_option: "image")
-    image_tag image_url + "/img/spell/" + summonerSpell.body["image"]["full"]
+  def getSummonerSpellImageTagById(id)
+    image_tag "summonerspellImage/" + id.to_s + ".png"
   end
 
-  def getItemImageTagById(image_url, id)
+  def getItemImageTagById(id)
     if id == nil
       return
     end
-    client = Taric.client(region: :jp)
-    item = client.static_item(id: id, item_data_option: "image")
-    image_tag image_url + "/img/item/" + item.body["image"]["full"]
+    image_tag "itemImage/" + id.to_s + ".png"
   end
 
   def getMatchHistoryLink(game_id, summoner_id)
