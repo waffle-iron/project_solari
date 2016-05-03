@@ -1,3 +1,12 @@
+<div class="container-fluid" id="main">
+<% if flash[:unlock] %>
+	<% flash[:unlock].each do |achievement_array| %>
+	<% achievement_array.each do |achievement| %>
+	<p class="alert alert-info"><span class="glyphicon glyphicon-info-sign">　</span>実績<%= achievement["name"] %>をアンロックしました！</p>
+	<% end %>
+	<% end %>
+<% end %>
+
 <div class="jumbotron">
 	<div class="container">
     <div class="row">

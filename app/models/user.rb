@@ -23,10 +23,14 @@ class User < ActiveRecord::Base
     @summonerInfo = data.body[summoner_name]
     data_games = client.recent_games(summoner_id: @summonerInfo["id"])
     @gameInfo = data_games.body["games"]
+    unlock_achievements = []
+    refresh_count = 0
 
     @gameInfo.each {|game_raw|
       stats = game_raw["stats"]
+
       if Game.find_by(:game_id => game_raw["gameId"]).blank?
+        refresh_count += 1
         #TODO 絞り込み条件どうする？
         if game_raw["subType"] == "ARAM_UNRANKED_5x5" || true
           gameRecord = Game.create!({
@@ -51,26 +55,33 @@ class User < ActiveRecord::Base
             })
           games << gameRecord
           save
-          checkAchievements(gameRecord, game_raw)
+          achieve = checkAchievements(gameRecord, game_raw)
+          if(!achieve.empty?)
+            unlock_achievements << achieve
+          end
         end
       end
     }
+    return unlock_achievements, refresh_count
   end
 
   private
 
   def checkAchievements(gameRecord, raw)
     all_achievements = Achievement.all
+    unlock_achievements = []
     all_achievements.each do |achievement|
       if checkAchievement(gameRecord, achievement, raw)
         if(self.achievements.find_by(:achievement_type => achievement[:achievement_type]).blank?)
           self.achievements << achievement
+          unlock_achievements << achievement
           save
         end
         achievementRelation = AchievementUser.find_by(:user => self, :achievement => achievement)
         achievementRelation.game << gameRecord
       end
     end
+    return unlock_achievements
   end
 
   def checkAchievement(gameRecord, achievement, raw)
