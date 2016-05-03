@@ -1,0 +1,61 @@
+<%= form_for(@matching) do |f| %>
+  <% if @matching.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@matching.errors.count, "error") %> prohibited this matching from being saved:</h2>
+
+      <ul>
+      <% @matching.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :queue_type %><br>
+    <%= f.number_field :queue_type %>
+  </div>
+  <div class="field">
+    <%= f.label :under30 %><br>
+    <%= f.check_box :under30 %>
+  </div>
+  <div class="field">
+    <%= f.label :unranked %><br>
+    <%= f.check_box :unranked %>
+  </div>
+  <div class="field">
+    <%= f.label :bronze %><br>
+    <%= f.check_box :bronze %>
+  </div>
+  <div class="field">
+    <%= f.label :silver %><br>
+    <%= f.check_box :silver %>
+  </div>
+  <div class="field">
+    <%= f.label :gold %><br>
+    <%= f.check_box :gold %>
+  </div>
+  <div class="field">
+    <%= f.label :plutinum %><br>
+    <%= f.check_box :plutinum %>
+  </div>
+  <div class="field">
+    <%= f.label :diamond %><br>
+    <%= f.check_box :diamond %>
+  </div>
+  <div class="field">
+    <%= f.label :master %><br>
+    <%= f.check_box :master %>
+  </div>
+  <div class="field">
+    <%= f.label :challenger %><br>
+    <%= f.check_box :challenger %>
+  </div>
+  <div class="field">
+    <%= f.label :deadline %><br>
+    <%= f.datetime_select :deadline %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

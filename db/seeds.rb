@@ -8,7 +8,7 @@
 
 #insert admin user
 #Role.create!  name: "admin"
-User.create!( user_name:             "admin",
+admin_user = User.create!( user_name:             "admin",
               email:                 "admin@example.com",
               summoner_name:         "javaspparow",
               champion_role:         0,
@@ -17,7 +17,7 @@ User.create!( user_name:             "admin",
               play_weekday_night:    true,
               play_weekday_latenight: true,
               play_holyday_noon: true)
-            .roles.create id: 1, name:"admin"
+admin_user.roles.create id: 1, name:"admin"
 
 Achievement.create!(achievement_type:        :triple_kill_aram,
 					name:        "ARAMトリプルキル",
@@ -68,3 +68,10 @@ Achievement.create!(achievement_type:        :double_kill_ranked,
           difficulty:  :easy,
           requirement: "ダブルキル",
           gametype: :ranked)
+
+test_match = Matching.create!()
+
+MatchingQueue.create!(user: admin_user,
+          matching: test_match,
+          primary_role: :fill_primary,
+          secondary_role: :fill_secondary)

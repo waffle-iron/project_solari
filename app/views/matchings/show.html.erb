@@ -1,0 +1,68 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Queue type:</strong>
+  <%= @matching.queue_type %>
+</p>
+
+<p>
+  <strong>Under30:</strong>
+  <%= @matching.under30 %>
+</p>
+
+<p>
+  <strong>Unranked:</strong>
+  <%= @matching.unranked %>
+</p>
+
+<p>
+  <strong>Bronze:</strong>
+  <%= @matching.bronze %>
+</p>
+
+<p>
+  <strong>Silver:</strong>
+  <%= @matching.silver %>
+</p>
+
+<p>
+  <strong>Gold:</strong>
+  <%= @matching.gold %>
+</p>
+
+<p>
+  <strong>Plutinum:</strong>
+  <%= @matching.plutinum %>
+</p>
+
+<p>
+  <strong>Diamond:</strong>
+  <%= @matching.diamond %>
+</p>
+
+<p>
+  <strong>Master:</strong>
+  <%= @matching.master %>
+</p>
+
+<p>
+  <strong>Challenger:</strong>
+  <%= @matching.challenger %>
+</p>
+
+<p>
+  <strong>Deadline:</strong>
+  <%= @matching.deadline %>
+</p>
+
+<strong>Queue_people</strong>
+<% @matching.matching_queues.each do |queue| %>
+<p>
+  <%= link_to queue.user.user_name, user_path(queue.user) %>
+  <%= queue.primary_role %>
+  <%= queue.secondary_role %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', edit_matching_path(@matching) %>
+<%= link_to 'Back', matchings_path %>
