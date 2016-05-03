@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  queue_type: 1
+  under30: false
+  unranked: false
+  bronze: false
+  silver: false
+  gold: false
+  plutinum: false
+  diamond: false
+  master: false
+  challenger: false
+  deadline: 2016-05-04 06:07:04
+
+two:
+  queue_type: 1
+  under30: false
+  unranked: false
+  bronze: false
+  silver: false
+  gold: false
+  plutinum: false
+  diamond: false
+  master: false
+  challenger: false
+  deadline: 2016-05-04 06:07:04

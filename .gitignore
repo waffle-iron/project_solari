@@ -18,3 +18,5 @@
 
 # api keys
 config/secrets.yml
+
+.DS_Store

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :matchings
   resources :achievements
   resources :teams do
     member do
