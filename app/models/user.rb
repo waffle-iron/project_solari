@@ -60,14 +60,14 @@ class User < ActiveRecord::Base
   private
 
   def checkAchievements(gameRecord, raw)
-    achievements = Achievement.aram
-    achievements.each do |achievement|
+    all_achievements = Achievement.all
+    all_achievements.each do |achievement|
       if checkAchievement(gameRecord, achievement, raw)
-        if(achievements.find_by(:achievement_type => achievement[:achievement_type]).blank?)
-          achievements << achievement
+        if(self.achievements.find_by(:achievement_type => achievement[:achievement_type]).blank?)
+          self.achievements << achievement
           save
         end
-        achievementRelation = AchievementUser.find_by(:user => this, :target_achievement => achievement)
+        achievementRelation = AchievementUser.find_by(:user => self, :achievement => achievement)
         achievementRelation.game << gameRecord
       end
     end
@@ -107,6 +107,13 @@ class User < ActiveRecord::Base
       when :penta_kill_aram then
         if gameRecord.game_mode == "ARAM_UNRANKED_5x5"
           if raw["stats"]["pentaKills"]
+            return true
+          end
+        end
+        return false
+      when :double_kill_ranked then
+        if gameRecord.game_mode == "RANKED_SOLO_5x5"
+          if raw["stats"]["doubleKills"]
             return true
           end
         end
