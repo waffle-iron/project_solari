@@ -13,7 +13,10 @@ User.create!( user_name:             "admin",
               summoner_name:         "javaspparow",
               champion_role:         0,
               password:              "urgod_shimane",
-              password_confirmation: "urgod_shimane")
+              password_confirmation: "urgod_shimane",
+              play_weekday_night:    true,
+              play_weekday_latenight: true,
+              play_holyday_noon: true)
             .roles.create id: 1, name:"admin"
 
 Achievement.create!(achievement_type:        :triple_kill_aram,

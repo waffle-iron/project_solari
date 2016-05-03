@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422063613) do
+ActiveRecord::Schema.define(version: 20160503062758) do
 
   create_table "achievement_users", force: :cascade do |t|
     t.integer  "achievement_id", limit: 4
@@ -128,6 +128,14 @@ ActiveRecord::Schema.define(version: 20160422063613) do
     t.string   "user_name",              limit: 255
     t.string   "summoner_name",          limit: 255
     t.integer  "champion_role",          limit: 4
+    t.boolean  "play_weekday_morning"
+    t.boolean  "play_weekday_noon"
+    t.boolean  "play_weekday_night"
+    t.boolean  "play_weekday_latenight"
+    t.boolean  "play_holyday_morning"
+    t.boolean  "play_holyday_noon"
+    t.boolean  "play_holyday_night"
+    t.boolean  "play_holyday_latenight"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
