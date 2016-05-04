@@ -73,3 +73,5 @@ gem 'websocket-rails'
 gem 'faye-websocket', '0.10.0'
 
 #gem 'active_link_to' Advanced link_to
+
+gem 'rails_12factor', group: :production
