@@ -16,6 +16,7 @@ class TeamsController < ApplicationController
     @chat_count = @team.teamchats.size
     session[:user_id] = current_user.id
     session[:team_id] = params[:id]
+    
   end
 
   # GET /teams/new
