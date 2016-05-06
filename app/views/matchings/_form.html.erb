@@ -11,9 +11,10 @@
     </div>
   <% end %>
 
+
   <div class="field">
     <%= f.label :queue_type %><br>
-    <%= f.number_field :queue_type %>
+    <%= f.select :queue_type, Matching.queue_types.keys.to_a, {}, class: 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :under30 %><br>
