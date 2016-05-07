@@ -28,6 +28,7 @@ class MatchingsController < ApplicationController
 
     respond_to do |format|
       if @matching.save
+        @matching.matching_queues.create user: current_user, primary_role: :fill_primary, secondary_role: :fill_secondary
         format.html { redirect_to @matching, notice: 'Matching was successfully created.' }
         format.json { render :show, status: :created, location: @matching }
       else

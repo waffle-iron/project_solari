@@ -68,10 +68,3 @@ Achievement.create!(achievement_type:        :double_kill_ranked,
           difficulty:  :easy,
           requirement: "ダブルキル",
           gametype: :ranked)
-
-test_match = Matching.create!()
-
-MatchingQueue.create!(user: admin_user,
-          matching: test_match,
-          primary_role: :fill_primary,
-          secondary_role: :fill_secondary)

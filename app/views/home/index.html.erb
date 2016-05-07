@@ -14,6 +14,12 @@
 <div><%= link_to team.name, team_path(team.id) %></div>
 <% end %>
 
+<% if !current_user.matching_queue %>
+<div><%= link_to "マッチング部屋作成", new_matching_path %></div>
+<% else %>
+<div><%= link_to "現在の部屋", matching_path(current_user.matching_queue) %></div>
+<% end %>
+
 <h2>サモナー情報</h2>
 <table border="1">
   <% @summonerInfo.each do | key, val | %>
