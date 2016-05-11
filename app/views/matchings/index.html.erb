@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Matchings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Queue type</th>
+      <th>Under30</th>
+      <th>Unranked</th>
+      <th>Bronze</th>
+      <th>Silver</th>
+      <th>Gold</th>
+      <th>Plutinum</th>
+      <th>Diamond</th>
+      <th>Master</th>
+      <th>Challenger</th>
+      <th>Deadline</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @matchings.each do |matching| %>
+      <tr>
+        <td><%= matching.queue_type %></td>
+        <td><%= matching.under30 %></td>
+        <td><%= matching.unranked %></td>
+        <td><%= matching.bronze %></td>
+        <td><%= matching.silver %></td>
+        <td><%= matching.gold %></td>
+        <td><%= matching.plutinum %></td>
+        <td><%= matching.diamond %></td>
+        <td><%= matching.master %></td>
+        <td><%= matching.challenger %></td>
+        <td><%= matching.deadline %></td>
+        <td><%= link_to 'Show', matching %></td>
+        <td><%= link_to 'Edit', edit_matching_path(matching) %></td>
+        <td><%= link_to 'Destroy', matching, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Matching', new_matching_path %>

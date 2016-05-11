@@ -1,3 +1,12 @@
+<div class="container-fluid" id="main">
+<% if flash[:unlock] %>
+	<% flash[:unlock].each do |achievement_array| %>
+	<% achievement_array.each do |achievement| %>
+	<p class="alert alert-info"><span class="glyphicon glyphicon-info-sign">　</span>実績<%= achievement["name"] %>をアンロックしました！</p>
+	<% end %>
+	<% end %>
+<% end %>
+
 <div class="jumbotron">
 	<div class="container">
     <div class="row">
@@ -56,6 +65,9 @@
     </div>
   </div>
 </div>
+
+<%= render :partial => 'layouts/playtime', :locals => {user: @user} %>
+
 <p>
   <div>
   	<strong>Name:</strong>
@@ -73,16 +85,19 @@
 	<% end %>
   </div>
 </p>
-<p>
-	<div>
-		<strong>MatchHistory</strong>
-		<% @user.games.each do |game| %>
-		<div>
-			<%= link_to game.game_id, getMatchHistoryLink(game.game_id, @summonerInfo["id"]) %>
-		</div>
-		<% end %>
-	</div>
-</p>
+
+<% if @user.matching_queue %>
+	<div><%= link_to "現在の部屋", matching_path(@user.matching_queue.matching_id) %></div>
+<% end %>
+
+
+<table>
+<tr>
+<% @games.each do |game| %>
+  <%= render :partial => 'layouts/game_row' , :locals => { game: game, summonerInfo: @summonerInfo} %>
+<% end %>
+</tr>
+</table>
 
 <p>
 	<strong>Achievements</strong>
@@ -90,7 +105,7 @@
     <div class="row">
 			<% @user.achievements.each do |achievement| %>
 				<div class="col-xs-6 col-md-3">
-					<%= render :partial => 'achievements/achievement_small_fragment' , :locals => { achievement: achievement } %>
+					<%= render :partial => 'achievements/achievement_small_fragment' , :locals => {achievement: achievement} %>
 				</div>
 			<% end %>
 		</div>

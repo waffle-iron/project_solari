@@ -7,17 +7,30 @@ class UsersController < ApplicationController
     userName = @user.summoner_name
     data = client.summoners_by_names(summoner_names: userName)
     @summonerInfo = data.body[userName]
+		@games = @user.games.order("create_date DESC")
 	end
 
   def refresh
+    if @user.match_updated_at
+      lastMin = ((Time.now - @user.match_updated_at) / 60).to_i
+      if lastMin < 30
+        redirect_to @user, notice: lastMin.to_s + "分前に更新したばかりです！あと" + (30 - lastMin).to_s + "分待ってください！"
+        return
+      end
+    end
 
-    @user.refresh_match_history
+    unlock_achievements, refresh_count = @user.refresh_match_history
+    @user.match_updated_at = Time.now
+    @user.save
 
     #TODO return proper message(API error, no new match found, new achievement unlock etc...)
-    if true
-      redirect_to @user, notice: 'Match history successfully updated.'
+    if unlock_achievements
+      flash[:unlock] = unlock_achievements
+    end
+    if refresh_count > 0
+      redirect_to @user, notice: 'match mistory updated'
     else
-      redirect_to @user, notice: 'Error!'
+      redirect_to @user, notice: 'no new data found'
     end
 
   end

@@ -8,16 +8,19 @@
 
 #insert admin user
 #Role.create!  name: "admin"
-User.create!( user_name:             "admin",
+admin_user = User.create!( user_name:             "admin",
               email:                 "admin@example.com",
               summoner_name:         "javaspparow",
               champion_role:         0,
               password:              "urgod_shimane",
-              password_confirmation: "urgod_shimane")
-            .roles.create id: 1, name:"admin"
+              password_confirmation: "urgod_shimane",
+              play_weekday_night:    true,
+              play_weekday_latenight: true,
+              play_holyday_noon: true)
+admin_user.roles.create id: 1, name:"admin"
 
 Achievement.create!(achievement_type:        :triple_kill_aram,
-					name:        "トリプルキル",
+					name:        "ARAMトリプルキル",
 					description: "ARAMでトリプルキルを達成しよう！",
 					image:       "achievements/yi.gif",
 					image_locked:       "achievements/yi_locked.gif",
@@ -27,7 +30,7 @@ Achievement.create!(achievement_type:        :triple_kill_aram,
 					gametype: :aram)
 
 Achievement.create!(achievement_type:        :double_kill_aram,
-					name:        "ダブルキル",
+					name:        "ARAMダブルキル",
 					description: "ARAMでダブルキルを達成しよう！",
 					image:       "achievements/yi.gif",
 					image_locked:       "achievements/yi_locked.gif",
@@ -37,7 +40,7 @@ Achievement.create!(achievement_type:        :double_kill_aram,
 					gametype: :aram)
 
 Achievement.create!(achievement_type:        :quadra_kill_aram,
-					name:        "クアドラキル",
+					name:        "ARAMクアドラキル",
 					description: "ARAMでクアドラキルを達成しよう！",
 					image:       "achievements/yi.gif",
 					image_locked:       "achievements/yi_locked.gif",
@@ -47,7 +50,7 @@ Achievement.create!(achievement_type:        :quadra_kill_aram,
 					gametype: :aram)
 
 Achievement.create!(achievement_type:        :penta_kill_aram,
-					name:        "ペンタキル",
+					name:        "ARAMペンタキル",
 					description: "ARAMでペンタキルを達成しよう！",
 					image:       "achievements/yi.gif",
 					image_locked:       "achievements/yi_locked.gif",
@@ -55,3 +58,13 @@ Achievement.create!(achievement_type:        :penta_kill_aram,
 					difficulty:  :easy,
 					requirement: "ペンタキル",
 					gametype: :aram)
+
+Achievement.create!(achievement_type:        :double_kill_ranked,
+          name:        "ダブルキル",
+          description: "ランクでダブルキルを達成しよう！",
+          image:       "achievements/yi.gif",
+          image_locked:       "achievements/yi_locked.gif",
+          count:        0,
+          difficulty:  :easy,
+          requirement: "ダブルキル",
+          gametype: :ranked)

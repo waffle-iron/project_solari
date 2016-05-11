@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :games
   has_many :teamchats
   has_many :teamonlychats
+  has_one :matching_queue
 
   enum champion_role: { fill: 0, bot: 1, support: 2, mid: 3, top: 4, jungle: 5}
 
@@ -24,11 +25,16 @@ class User < ActiveRecord::Base
     @summonerInfo = data.body[summoner_name]
     data_games = client.recent_games(summoner_id: @summonerInfo["id"])
     @gameInfo = data_games.body["games"]
+    unlock_achievements = []
+    refresh_count = 0
 
     @gameInfo.each {|game_raw|
       stats = game_raw["stats"]
+
       if Game.find_by(:game_id => game_raw["gameId"]).blank?
-        if game_raw["subType"] == "ARAM_UNRANKED_5x5"
+        refresh_count += 1
+        #TODO 絞り込み条件どうする？
+        if game_raw["subType"] == "ARAM_UNRANKED_5x5" || true
           gameRecord = Game.create!({
             :game_id => game_raw["gameId"],
             :champion_id => game_raw["championId"],
@@ -51,29 +57,36 @@ class User < ActiveRecord::Base
             })
           games << gameRecord
           save
-          checkAchievements(game: gameRecord, rawData: game_raw)
+          achieve = checkAchievements(gameRecord, game_raw)
+          if(!achieve.empty?)
+            unlock_achievements << achieve
+          end
         end
       end
     }
+    return unlock_achievements, refresh_count
   end
 
   private
 
-  def checkAchievements(game: gameRecord, rawData: raw)
-    achievements = Achievement.aram
-    achievements.each do |achievement|
-      if checkAchievement(game: gameRecord, target_achievement: achievement, rawData: raw)
-        if(achievements.find_by(:achievement_type => achievement[:achievement_type]).blank?)
-          achievements << achievement
+  def checkAchievements(gameRecord, raw)
+    all_achievements = Achievement.all
+    unlock_achievements = []
+    all_achievements.each do |achievement|
+      if checkAchievement(gameRecord, achievement, raw)
+        if(self.achievements.find_by(:achievement_type => achievement[:achievement_type]).blank?)
+          self.achievements << achievement
+          unlock_achievements << achievement
           save
         end
-        achievementRelation = AchievementUser.find_by(:user => this, :target_achievement => achievement)
+        achievementRelation = AchievementUser.find_by(:user => self, :achievement => achievement)
         achievementRelation.game << gameRecord
       end
     end
+    return unlock_achievements
   end
 
-  def checkAchievement(game: gameRecord, target_achievement: achievement, rawData: raw)
+  def checkAchievement(gameRecord, achievement, raw)
 
     case achievement.achievement_type.to_sym
       when :double_kill_aram then
@@ -107,6 +120,13 @@ class User < ActiveRecord::Base
       when :penta_kill_aram then
         if gameRecord.game_mode == "ARAM_UNRANKED_5x5"
           if raw["stats"]["pentaKills"]
+            return true
+          end
+        end
+        return false
+      when :double_kill_ranked then
+        if gameRecord.game_mode == "RANKED_SOLO_5x5"
+          if raw["stats"]["doubleKills"]
             return true
           end
         end

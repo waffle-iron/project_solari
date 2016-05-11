@@ -1,14 +1,14 @@
 <tr>
   <th>GameId</th>
-  <th><%= game.game_id %></th>
-  <th><%= getChampionImageTagById(image_url, game.champion_id) %></th>
-  <th><%= getSummonerSpellImageTagById(image_url, game.spell_1) %> <%= getSummonerSpellImageTagById(image_url, game.spell_2) %></th>
+  <th><%= link_to game.game_id, getMatchHistoryLink(game.game_id, summonerInfo["id"]) %></th>
+  <th><%= getChampionImageTagById(game.champion_id) %></th>
+  <th><%= getSummonerSpellImageTagById(game.spell_1) %> <%= getSummonerSpellImageTagById(game.spell_2) %></th>
   <th><%= game.kill.to_s + "/" + game.death.to_s + "/" + game.assist.to_s %></th>
-  <th><%= getItemImageTagById(image_url, game.item0) %>
-  <%= getItemImageTagById(image_url, game.item1) %>
-  <%= getItemImageTagById(image_url, game.item2) %>
-  <%= getItemImageTagById(image_url, game.item3) %>
-  <%= getItemImageTagById(image_url, game.item4) %>
-  <%= getItemImageTagById(image_url, game.item5) %>
-  <%= getItemImageTagById(image_url, game.item6) %></th>
+  <th><%= getItemImageTagById(game.item0) %>
+  <%= getItemImageTagById(game.item1) %>
+  <%= getItemImageTagById(game.item2) %>
+  <%= getItemImageTagById(game.item3) %>
+  <%= getItemImageTagById(game.item4) %>
+  <%= getItemImageTagById(game.item5) %>
+  <%= getItemImageTagById(game.item6) %></th>
 </tr>
