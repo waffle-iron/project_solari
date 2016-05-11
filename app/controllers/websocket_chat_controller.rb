@@ -24,8 +24,6 @@ class WebsocketChatController < WebsocketRails::BaseController
       chat.user_id = message[:user_id]
       chat.team_id = message[:team_id]
       chat.body = message[:body]
-      chat.is_valid?
-      puts "ok?"
       if chat.is_valid?
         if chat.save!
         #      logger.debug("save:"+message)

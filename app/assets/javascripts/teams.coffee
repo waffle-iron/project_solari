@@ -4,14 +4,14 @@
 
 class @ChatClass
   constructor: (url, useWebsocket) ->
-    # ソケットのディスパッチャー
     @team_id = $('#team_id').text()
     @user_id = $('#user_id').text()
+    # ソケットのディスパッチャー
     @dispatcher = new WebSocketRails(url, useWebsocket)
     @channel = @dispatcher.subscribe(@team_id)
-    # イベントを監視
-    @bindEvents()
+#    @bindEvents()
 
+  # イベントを監視
   bindEvents: () =>
     # 送信ボタンが押されたらサーバへメッセージを送信
     $('#send_teamchat').on 'click', @sendTeamMessage
@@ -21,8 +21,6 @@ class @ChatClass
     @channel.bind 'new_message', @receiveMessage
 
   sendTeamMessage: (event) =>
-    console.log("teammessage")
-    # サーバ側にsend_messageのイベントを送信
     msg_body = $('#team_msgbody').val()
     if msg_body == ""
       return
@@ -30,8 +28,6 @@ class @ChatClass
     $('#team_msgbody').val('')
 
   sendTeamOnlyMessage: (event) =>
-    console.log("teamonlymessage")
-    # サーバ側にsend_messageのイベントを送信
     msg_body = $('#teamonly_msgbody').val()
     if msg_body == ""
       return
@@ -40,19 +36,16 @@ class @ChatClass
 
   receiveMessage: (message) =>
     console.log message
-    # 受け取ったデータをappend
     if message.teamonly
       $('#teamonlychat').append "<li>#{message.time}　#{message.user_id}: #{message.body}</li>"
     else
       $('#teamchat').append "<li>#{message.time}　#{message.user_id}: #{message.body}</li>"
 
   unsubscribe: () =>
-    console.log "unsunbscribe"
     @channel = @dispatcher.unsubscribe(@team_id)
 
   subscribe: () =>
-    console.log "subscribe"
-    @team_id = $('#team_id').text()    
+    @team_id = $('#team_id').text()
     @channel = @dispatcher.subscribe(@team_id)
     @bindEvents()
 
