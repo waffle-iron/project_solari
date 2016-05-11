@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503073436) do
+ActiveRecord::Schema.define(version: 20160503213233) do
 
   create_table "achievement_users", force: :cascade do |t|
     t.integer  "achievement_id", limit: 4
@@ -81,6 +81,31 @@ ActiveRecord::Schema.define(version: 20160503073436) do
   add_index "games_users", ["game_id"], name: "index_games_users_on_game_id", using: :btree
   add_index "games_users", ["user_id"], name: "index_games_users_on_user_id", using: :btree
 
+  create_table "matching_queues", force: :cascade do |t|
+    t.integer  "user_id",        limit: 4
+    t.integer  "matching_id",    limit: 4
+    t.integer  "primary_role",   limit: 4
+    t.integer  "secondary_role", limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "matchings", force: :cascade do |t|
+    t.integer  "queue_type", limit: 4
+    t.boolean  "under30"
+    t.boolean  "unranked"
+    t.boolean  "bronze"
+    t.boolean  "silver"
+    t.boolean  "gold"
+    t.boolean  "plutinum"
+    t.boolean  "diamond"
+    t.boolean  "master"
+    t.boolean  "challenger"
+    t.datetime "deadline"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
@@ -137,6 +162,15 @@ ActiveRecord::Schema.define(version: 20160503073436) do
     t.string   "user_name",              limit: 255
     t.string   "summoner_name",          limit: 255
     t.integer  "champion_role",          limit: 4
+    t.boolean  "play_weekday_morning"
+    t.boolean  "play_weekday_noon"
+    t.boolean  "play_weekday_night"
+    t.boolean  "play_weekday_latenight"
+    t.boolean  "play_holyday_morning"
+    t.boolean  "play_holyday_noon"
+    t.boolean  "play_holyday_night"
+    t.boolean  "play_holyday_latenight"
+    t.datetime "match_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
