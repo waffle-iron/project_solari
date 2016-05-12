@@ -1,5 +1,5 @@
 class MatchingsController < ApplicationController
-  before_action :set_matching, only: [:show, :edit, :update, :destroy]
+  before_action :set_matching, only: [:show, :edit, :update, :destroy, :join]
 
   # GET /matchings
   # GET /matchings.json
@@ -60,6 +60,10 @@ class MatchingsController < ApplicationController
       format.html { redirect_to matchings_url, notice: 'Matching was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def join
+    @matching_queue = MatchingQueue.new
   end
 
   private
