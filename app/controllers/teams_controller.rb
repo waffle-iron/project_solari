@@ -12,8 +12,13 @@ class TeamsController < ApplicationController
   def show
     page_size = 10
     page_num = 0 # read N from URL http*.html?log=N
-    @chat_log = @team.teamchats.order(updated_at: :desc).limit(page_size).offset(page_size * page_num) # read from DB
-    @chat_count = @team.teamchats.size
+    @is_member = @team.users.include?(current_user)
+    @team_chat_log = @team.teamchats.order(updated_at: :desc).limit(page_size).offset(page_size * page_num) # read from DB
+    @team_chat_count = @team.teamchats.size
+    if @is_member
+      @teamonly_chat_log = @team.teamonlychats.order(updated_at: :desc).limit(page_size).offset(page_size * page_num)
+      @teamonly_chat_count = @team.teamonlychats.size
+    end
     session[:user_id] = current_user.id
     session[:team_id] = params[:id]
     
@@ -93,4 +98,5 @@ class TeamsController < ApplicationController
     def team_params
       params.require(:team).permit(:name)
     end
+
 end

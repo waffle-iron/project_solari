@@ -17,18 +17,33 @@ class WebsocketChatController < WebsocketRails::BaseController
     # end
 
     message[:time] = Time.now.to_s
-    WebsocketRails[message[:team_id]].trigger(:new_message, message)
-    # broadcast_message :new_message, message
 
-    chat = Teamchat.new
-    chat.user_id = message[:user_id]
-    chat.team_id = message[:team_id]
-    chat.body = message[:body]
-    if chat.save! then
-#      logger.debug("save:"+message)
+    puts message
+    if message[:teamonly]
+      chat = Teamonlychat.new
+      chat.user_id = message[:user_id]
+      chat.team_id = message[:team_id]
+      chat.body = message[:body]
+      if chat.is_valid?
+        if chat.save!
+        #      logger.debug("save:"+message)
+        else
+          logger.debug("save failed: "+message)
+        end
+        WebsocketRails[message[:team_id]].trigger(:new_message, message)
+      end
     else
-      logger.debug("save failed: "+message)
+      chat = Teamchat.new
+      chat.user_id = message[:user_id]
+      chat.team_id = message[:team_id]
+      chat.body = message[:body]
+      if chat.save!
+      #      logger.debug("save:"+message)
+      else
+        logger.debug("save failed: "+message)
+      end
+      WebsocketRails[message[:team_id]].trigger(:new_message, message)
     end
-
   end
+
 end
