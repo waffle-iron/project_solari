@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :achievements, through: :achievement_users
   has_and_belongs_to_many :games
   has_many :teamchats
+  has_many :teamonlychats
   has_one :matching_queue
 
   enum champion_role: { fill: 0, bot: 1, support: 2, mid: 3, top: 4, jungle: 5}

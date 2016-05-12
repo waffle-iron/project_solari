@@ -16,31 +16,66 @@
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>
 
-<h2>チャット</h2>
+<div id="chat" data-uri="<%= request.host %>:3000/websocket">
+  <div id="user_id" style="display:none;"><%= current_user.id %></div>
+  <div id="team_id" style="display:none;"><%= session[:team_id] %></div>
 
-<p>
-  there are <%= @chat_count %> chat(s) before.
-</p>
-
-<!-- jsに食わせたい情報などなど -->
-<div id="user_id" style="display:none;"><%= current_user.id %></div>
-<div id="team_id" style="display:none;"><%= session[:team_id] %></div>
-
-<!-- チャットのタイムラインとログ -->
-<div id="timeline" style="margin:20px;">
-  <ul id="chat" data-uri="<%= request.host %>:3000/websocket">
-  <% @chat_log.reverse_each do |x| %>
-    <li><%= x.updated_at %>　<%= x.user_id %>: <%= x.body %></li>
+  <!-- TeamChat -->
+  <h2>チームチャット</h2>
+  <p>
+	there are <%= @team_chat_count %> chat(s) before.
+  </p>
+  
+  <div id="team_chat_timeline" style="margin:20px;">
+	<ul id="teamchat">
+	  <% if not @team_chat_log.nil? %>
+	  <% @team_chat_log.reverse_each do |x| %>
+      <li><%= x.updated_at %>　<%= x.user_id %>: <%= x.body %></li>
+	  <% end %>
+	  <% end %>
+	</ul>
+  </div>
+  
+  <hr/>
+  
+  <div>
+	<form class="form-horizontal">
+	  <input type="text" class="form-control" id="team_msgbody" />
+	  <input type="button" class="btn btn-primary" id="send_teamchat" value="送信"/>
+	</form>
+  </div>
+  
+  <!-- TeamOnlyChat -->
+  <h2>チーム内部チャット</h2>
+  
+  <% if @is_member %>
+  <p>
+	there are <%= @teamonly_chat_count %> team only chat(s) before.
+  </p>
+  
+  <div id="teamonly_chat_timeline" style="margin:20px;">
+	<ul id="teamonlychat">
+	  <% if not @teamonly_chat_log.nil? %>
+	  <% @teamonly_chat_log.reverse_each do |x| %>
+      <li><%= x.updated_at %>　<%= x.user_id %>: <%= x.body %></li>
+	  <% end %>
+	  <% end %>
+	</ul>
+  </div>
+  
+  <hr/>
+  
+  <div>
+	<form class="form-horizontal">
+	  <input type="text" class="form-control" id="teamonly_msgbody" />
+	  <input type="button" class="btn btn-primary" id="send_teamonlychat" value="送信"/>
+	</form>
+  </div>
+  
+  <% else %>
+  <p>
+	you are not team member!
+  </p>
+  
   <% end %>
-  </ul>
-</div>
-
-<hr/>
-
-<!-- テキストボックス -->
-<div>
- <form class="form-horizontal">
-   <input type="text" class="form-control" id="msgbody" />
-   <input type="button" class="btn btn-primary" id="send" value="送信"/>
- </form>
 </div>
