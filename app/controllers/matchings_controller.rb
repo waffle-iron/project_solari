@@ -42,12 +42,24 @@ class MatchingsController < ApplicationController
   # PATCH/PUT /matchings/1.json
   def update
     respond_to do |format|
-      if @matching.update(matching_params)
-        format.html { redirect_to @matching, notice: 'Matching was successfully updated.' }
-        format.json { render :show, status: :ok, location: @matching }
+      # join matching
+      if params[:join]
+        if @matching.matching_queues.create user: current_user, primary_role: params[:matching_queue][:primary_role], secondary_role: params[:matching_queue][:secondary_role]
+          format.html { redirect_to @matching, notice: 'joined to matching.' }
+          format.json { render :show, status: :ok, location: @matching }
+        else
+          format.html { render :join }
+          format.json { render json: @matching.errors, status: :unprocessable_entity }
+        end
+      # edit matching
       else
-        format.html { render :edit }
-        format.json { render json: @matching.errors, status: :unprocessable_entity }
+        if @matching.update(matching_params)
+          format.html { redirect_to @matching, notice: 'Matching was successfully updated.' }
+          format.json { render :show, status: :ok, location: @matching }
+        else
+          format.html { render :edit }
+          format.json { render json: @matching.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

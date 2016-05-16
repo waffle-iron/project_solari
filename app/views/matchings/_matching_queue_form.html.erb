@@ -1,26 +1,29 @@
-<%= fields_for(@matching_queue) do |f| %>
-  <% if @matching_queue.errors.any? %>
+<%= form_for(@matching) do |f| %>
+  <% if @matching.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@matching_queue.errors.count, "error") %> prohibited this matching from being saved:</h2>
+      <h2><%= pluralize(@matching.errors.count, "error") %> prohibited this matching from being saved:</h2>
 
       <ul>
-      <% @matching_queue.errors.full_messages.each do |message| %>
+      <% @matching.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
+  <%= fields_for @matching_queue do |queue| %>
+    <div class="field">
+      <%= queue.label :primary_role %><br>
+      <%= queue.select :primary_role, MatchingQueue.primary_roles.keys.to_a, {}, class: 'form-control' %>
+    </div>
+    <div class="field">
+      <%= queue.label :primary_role %><br>
+      <%= queue.select :secondary_role, MatchingQueue.secondary_roles.keys.to_a, {}, class: 'form-control' %>
+    </div>
+  <% end %>
 
-  <div class="field">
-    <%= f.label :primary_role %><br>
-    <%= f.select :primary_role, MatchingQueue.primary_roles.keys.to_a, {}, class: 'form-control' %>
-  </div>
-  <div class="field">
-    <%= f.label :primary_role %><br>
-    <%= f.select :secondary_role, MatchingQueue.secondary_roles.keys.to_a, {}, class: 'form-control' %>
-  </div>
   <div class="actions">
     <%= f.submit 'Join Queue', :name => 'join' %>
   </div>
+
 <% end %>
