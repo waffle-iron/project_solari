@@ -1,7 +1,7 @@
 # coding: utf-8
 source 'https://rubygems.org'
 
-'ruby' '2.3.0'
+ruby '2.3.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
@@ -40,7 +40,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem 'byebug', '8.2.2'
 end
 
 group :development do
@@ -66,7 +66,7 @@ gem 'therubyracer' # javascript runtime。lessをコンパイルするために�
 #gem 'less-rails' # Railsでlessを使えるようにする。Bootstrapがlessで書かれているため
 #gem 'twitter-bootstrap-rails' # Bootstrapの本体
 
-gem 'taric' # riot api for ruby (https://github.com/josephyi/taric)
+#gem 'taric' # riot api for ruby (https://github.com/josephyi/taric)
 gem 'typhoeus'
 
 gem 'websocket-rails'
