@@ -19,6 +19,16 @@ admin_user = User.create!( user_name:             "admin",
               play_holyday_noon: true)
 admin_user.roles.create id: 1, name:"admin"
 
+User.create!( user_name:             "user1",
+              email:                 "user1@example.com",
+              summoner_name:         "marpore",
+              champion_role:         0,
+              password:              "urgod_shimane",
+              password_confirmation: "urgod_shimane",
+              play_weekday_night:    true,
+              play_weekday_latenight: true,
+              play_holyday_noon: true)
+
 Achievement.create!(achievement_type:        :triple_kill_aram,
 					name:        "ARAMトリプルキル",
 					description: "ARAMでトリプルキルを達成しよう！",

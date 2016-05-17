@@ -64,7 +64,7 @@
 </p>
 <% end %>
 
-<% if current_user.matching_queue %>
+<% if !current_user.matching_queue %>
 <%= link_to 'Join', join_matching_path(@matching) %>
 <% end %>
 

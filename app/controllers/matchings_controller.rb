@@ -26,6 +26,13 @@ class MatchingsController < ApplicationController
   def create
     @matching = Matching.new(matching_params)
 
+    #TODO add first man role
+    @matching.top_point = 0
+    @matching.bot_point = 0
+    @matching.mid_point = 0
+    @matching.sup_point = 0
+    @matching.jg_point = 0
+
     respond_to do |format|
       if current_user.matching_queue
         format.html { redirect_to matchings_path, alert: "すでに部屋に参加しています！" }
@@ -52,6 +59,8 @@ class MatchingsController < ApplicationController
         #TODO マッチング自体に人数を持たせないとSQLが重くなりそう
         matching_queue = MatchingQueue.new(:matching => @matching, :user => current_user, :primary_role => params[:matching_queue][:primary_role], :secondary_role => params[:matching_queue][:secondary_role])
         if matching_queue.save
+          #matchingにroleの追加を通知
+          @matching.add_role_point(matching_queue)
           format.html { redirect_to @matching, notice: 'joined to matching.' }
           format.json { render :show, status: :ok, location: @matching }
         else
