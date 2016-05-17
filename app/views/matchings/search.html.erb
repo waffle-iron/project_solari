@@ -39,6 +39,14 @@
     <%= f.label :challenger %><br>
     <%= f.check_box :challenger %>
   </div>
+  <div class="field">
+    <%= f.label :role_primary %><br>
+    <%= f.select :role_primary, MatchingQueue.primary_roles.keys.to_a, {}, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :role_primary %><br>
+    <%= f.select :role_primary, MatchingQueue.secondary_roles.keys.to_a, {}, class: 'form-control' %>
+  </div>
   <div class="actions">
     <%= f.submit 'search', :name => 'search' %>
   </div>

@@ -17,7 +17,7 @@
       <%= queue.select :primary_role, MatchingQueue.primary_roles.keys.to_a, {}, class: 'form-control' %>
     </div>
     <div class="field">
-      <%= queue.label :primary_role %><br>
+      <%= queue.label :secondary_role %><br>
       <%= queue.select :secondary_role, MatchingQueue.secondary_roles.keys.to_a, {}, class: 'form-control' %>
     </div>
   <% end %>
