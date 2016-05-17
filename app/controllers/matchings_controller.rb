@@ -27,6 +27,11 @@ class MatchingsController < ApplicationController
     @matching = Matching.new(matching_params)
 
     respond_to do |format|
+      if current_user.matching_queue
+        format.html { redirect_to matchings_path, alert: "すでに部屋に参加しています！" }
+        format.json { render json: matching_queue.errors, status: :unprocessable_entity }
+        next
+      end
       if @matching.save
         @matching.matching_queues.create user: current_user, primary_role: :fill_primary, secondary_role: :fill_secondary
         format.html { redirect_to @matching, notice: 'Matching was successfully created.' }
@@ -81,7 +86,21 @@ class MatchingsController < ApplicationController
     @matching_queue = MatchingQueue.new
   end
 
+  def search
+    @matching_search = Search::Matching.new
+    if(params[:search_matching])
+      @matchings = Search::Matching.new(search_params)
+      @matchings = @matchings.matches
+    else
+      @matchings = Matching.all
+    end
+  end
+
   private
+    def search_params
+      params.require(:search_matching).permit(Search::Matching::ATTRIBUTES)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_matching
       @matching = Matching.find(params[:id])

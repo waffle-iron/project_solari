@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   resources :matchings do
     member do
-      post ':id/join' => 'matchings#add'
       get 'join'
+    end
+    collection do
+      get 'search'
     end
   end
   resources :achievements
