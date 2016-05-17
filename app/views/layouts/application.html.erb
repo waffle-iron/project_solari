@@ -41,6 +41,17 @@
     <% if alert %>
       <p class="alert alert-warning"><span class="glyphicon glyphicon-info-sign">　</span><%= alert %></p>
     <% end %>
+    <% if flash[:error] %>
+    <div id="error_explanation">
+      <h2><%= flash[:error].count %>件のエラーがあります。</h2>
+
+      <ul>
+      <% flash[:error].full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+    <% end %>
     <%= yield %>
   </div>
 </div>

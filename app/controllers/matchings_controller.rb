@@ -44,12 +44,15 @@ class MatchingsController < ApplicationController
     respond_to do |format|
       # join matching
       if params[:join]
-        if @matching.matching_queues.create user: current_user, primary_role: params[:matching_queue][:primary_role], secondary_role: params[:matching_queue][:secondary_role]
+        #TODO マッチング自体に人数を持たせないとSQLが重くなりそう
+        matching_queue = MatchingQueue.new(:matching => @matching, :user => current_user, :primary_role => params[:matching_queue][:primary_role], :secondary_role => params[:matching_queue][:secondary_role])
+        if matching_queue.save
           format.html { redirect_to @matching, notice: 'joined to matching.' }
           format.json { render :show, status: :ok, location: @matching }
         else
-          format.html { render :join }
-          format.json { render json: @matching.errors, status: :unprocessable_entity }
+          flash.now[:error] = matching_queue.errors
+          format.html { render :show }
+          format.json { render json: matching_queue.errors, status: :unprocessable_entity }
         end
       # edit matching
       else
