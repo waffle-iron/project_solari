@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503213233) do
+ActiveRecord::Schema.define(version: 20160517080531) do
 
   create_table "achievement_users", force: :cascade do |t|
     t.integer  "achievement_id", limit: 4
@@ -104,6 +104,11 @@ ActiveRecord::Schema.define(version: 20160503213233) do
     t.datetime "deadline"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "top_point",  limit: 4
+    t.integer  "mid_point",  limit: 4
+    t.integer  "bot_point",  limit: 4
+    t.integer  "sup_point",  limit: 4
+    t.integer  "jg_point",   limit: 4
   end
 
   create_table "roles", force: :cascade do |t|

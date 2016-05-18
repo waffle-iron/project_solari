@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  resources :matchings
+  resources :matchings do
+    member do
+      get 'join'
+    end
+    collection do
+      get 'search'
+    end
+  end
   resources :achievements
   resources :teams do
     member do

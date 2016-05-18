@@ -1,5 +1,5 @@
 class MatchingsController < ApplicationController
-  before_action :set_matching, only: [:show, :edit, :update, :destroy]
+  before_action :set_matching, only: [:show, :edit, :update, :destroy, :join]
 
   # GET /matchings
   # GET /matchings.json
@@ -26,7 +26,19 @@ class MatchingsController < ApplicationController
   def create
     @matching = Matching.new(matching_params)
 
+    #TODO add first man role
+    @matching.top_point = 0
+    @matching.bot_point = 0
+    @matching.mid_point = 0
+    @matching.sup_point = 0
+    @matching.jg_point = 0
+
     respond_to do |format|
+      if current_user.matching_queue
+        format.html { redirect_to matchings_path, alert: "すでに部屋に参加しています！" }
+        format.json { render json: matching_queue.errors, status: :unprocessable_entity }
+        next
+      end
       if @matching.save
         @matching.matching_queues.create user: current_user, primary_role: :fill_primary, secondary_role: :fill_secondary
         format.html { redirect_to @matching, notice: 'Matching was successfully created.' }
@@ -42,12 +54,29 @@ class MatchingsController < ApplicationController
   # PATCH/PUT /matchings/1.json
   def update
     respond_to do |format|
-      if @matching.update(matching_params)
-        format.html { redirect_to @matching, notice: 'Matching was successfully updated.' }
-        format.json { render :show, status: :ok, location: @matching }
+      # join matching
+      if params[:join]
+        #TODO マッチング自体に人数を持たせないとSQLが重くなりそう
+        matching_queue = MatchingQueue.new(:matching => @matching, :user => current_user, :primary_role => params[:matching_queue][:primary_role], :secondary_role => params[:matching_queue][:secondary_role])
+        if matching_queue.save
+          #matchingにroleの追加を通知
+          @matching.add_role_point(matching_queue)
+          format.html { redirect_to @matching, notice: 'joined to matching.' }
+          format.json { render :show, status: :ok, location: @matching }
+        else
+          flash.now[:error] = matching_queue.errors
+          format.html { render :show }
+          format.json { render json: matching_queue.errors, status: :unprocessable_entity }
+        end
+      # edit matching
       else
-        format.html { render :edit }
-        format.json { render json: @matching.errors, status: :unprocessable_entity }
+        if @matching.update(matching_params)
+          format.html { redirect_to @matching, notice: 'Matching was successfully updated.' }
+          format.json { render :show, status: :ok, location: @matching }
+        else
+          format.html { render :edit }
+          format.json { render json: @matching.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -62,7 +91,25 @@ class MatchingsController < ApplicationController
     end
   end
 
+  def join
+    @matching_queue = MatchingQueue.new
+  end
+
+  def search
+    @matching_search = Search::Matching.new
+    if(params[:search_matching])
+      @matchings = Search::Matching.new(search_params)
+      @matchings = @matchings.matches
+    else
+      @matchings = Matching.all
+    end
+  end
+
   private
+    def search_params
+      params.require(:search_matching).permit(Search::Matching::ATTRIBUTES)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_matching
       @matching = Matching.find(params[:id])
