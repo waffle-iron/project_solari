@@ -59,8 +59,23 @@
 <% @matching.matching_queues.each do |queue| %>
 <p>
   <%= link_to queue.user.user_name, user_path(queue.user) %>
-  <%= queue.primary_role %>
-  <%= queue.secondary_role %>
+    <% if queue.user == current_user %>
+    <%= fields_for queue do |queue_role| %>
+    <div class="field">
+      <%= queue_role.label :primary_role %><br>
+      <%= queue_role.select :primary_role, MatchingQueue.primary_roles.keys.to_a, {}, class: 'form-control' %>
+    </div>
+    <div class="field">
+      <%= queue_role.label :secondary_role %><br>
+      <%= queue_role.select :secondary_role, MatchingQueue.secondary_roles.keys.to_a, {}, class: 'form-control' %>
+    </div>
+    <div class="actions">
+      <%= f.submit 'Join Queue', :name => 'join' %>
+    </div>
+  <% else %>
+    <%= queue.primary_role %>
+    <%= queue.secondary_role %>
+  <% end %>
 </p>
 <% end %>
 
