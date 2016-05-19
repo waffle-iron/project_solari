@@ -66,10 +66,12 @@ gem 'therubyracer' # javascript runtime。lessをコンパイルするために�
 #gem 'less-rails' # Railsでlessを使えるようにする。Bootstrapがlessで書かれているため
 #gem 'twitter-bootstrap-rails' # Bootstrapの本体
 
-#gem 'taric' # riot api for ruby (https://github.com/josephyi/taric)
+gem 'taric' # riot api for ruby (https://github.com/josephyi/taric)
 gem 'typhoeus'
 
 gem 'websocket-rails'
 gem 'faye-websocket', '0.10.0'
 
 #gem 'active_link_to' Advanced link_to
+
+gem 'faraday'
