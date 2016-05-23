@@ -11,19 +11,21 @@
     </div>
   <% end %>
 
-  <%= fields_for @matching_queue do |queue| %>
-    <div class="field">
-      <%= queue.label :primary_role %><br>
-      <%= queue.select :primary_role, MatchingQueue.primary_roles.keys.to_a, {}, class: 'form-control' %>
-    </div>
-    <div class="field">
-      <%= queue.label :secondary_role %><br>
-      <%= queue.select :secondary_role, MatchingQueue.secondary_roles.keys.to_a, {}, class: 'form-control' %>
-    </div>
+  <%= fields_for matching_queue do |f| %>
+    <%= f.text_field :summoner_name %>
+    <%= f.check_box :top %>
+    <%= f.check_box :mid %>
+    <%= f.check_box :bot %>
+    <%= f.check_box :sup %>
+    <%= f.check_box :jg %>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit 'Join Queue', :name => 'join' %>
-  </div>
+  <% if use_socket %>
+    <input type="button" class="btn btn-primary" id="send_rolechange" value="change_queue"/>
+  <% else %>
+    <div class="actions">
+      <%= f.submit submit_name , :name => action_name %>
+    </div>
+  <% end %>
 
 <% end %>
