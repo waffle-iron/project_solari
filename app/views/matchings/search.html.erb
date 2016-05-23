@@ -13,7 +13,7 @@
   <% unless @is_login %>
     <script type="text/javascript">
       document.getElementById("login_only").style = "background-color: gray";
-      document.write("<h2><center>please login!！</center></h2>")
+      console.log("please login!");
     </script>
   <% else %>
     <h1>summoner infomation</h1>
@@ -74,13 +74,26 @@
     <%= f.check_box :challenger %>
   </div>
   <div class="field">
-    <%= f.label :role_primary %><br>
-    <%= f.select :role_primary, MatchingQueue.primary_roles.keys.to_a, {}, class: 'form-control' %>
+    <%= f.label :top %><br>
+    <%= f.check_box :top %>
   </div>
   <div class="field">
-    <%= f.label :role_primary %><br>
-    <%= f.select :role_primary, MatchingQueue.secondary_roles.keys.to_a, {}, class: 'form-control' %>
+    <%= f.label :mid %><br>
+    <%= f.check_box :mid %>
   </div>
+  <div class="field">
+    <%= f.label :bot %><br>
+    <%= f.check_box :bot %>
+  </div>
+  <div class="field">
+    <%= f.label :jg %><br>
+    <%= f.check_box :jg %>
+  </div>
+  <div class="field">
+    <%= f.label :sup %><br>
+    <%= f.check_box :sup %>
+  </div>
+
   <div class="actions">
     <%= f.submit 'search', :name => 'search' %>
   </div>

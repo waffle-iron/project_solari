@@ -31,7 +31,7 @@ class MatchingsController < ApplicationController
 
     respond_to do |format|
       if @matching.save && matching_queue.valid?
-        token = @matching.add_member(matching_queue)
+        member_num, token = @matching.add_member(matching_queue)
         flash[:current_token] = token
         format.html { redirect_to @matching, notice: 'Matching was successfully created.' }
         format.json { render :show, status: :created, location: @matching }
@@ -98,10 +98,8 @@ class MatchingsController < ApplicationController
   def search
     @is_login = false
     if params.include?(:summoner_name)
-      @is_login = true
       search_summoner(params[:summoner_name])
     elsif not current_user.nil?
-      @is_login = true
       search_summoner(current_user.summoner_name)
     end
 
@@ -137,7 +135,10 @@ class MatchingsController < ApplicationController
       client = Taric.client(region: :jp)
       data = client.summoners_by_names(summoner_names: summoner_name)
       if data.body.include?(summoner_name)
+        @is_login = true
         @summonerInfo = data.body[summoner_name]
+      else
+        flash.now[:alert] = "summoner not found"
       end
     end
 
