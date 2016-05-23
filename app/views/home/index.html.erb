@@ -5,31 +5,16 @@
 	</div>
 </div>
 
+#サモナー認証
+<div>
 
-<h1>こんにちは、<%= current_user.user_name %>さん</h1>
+</div>
 
-<h2>所属チーム</h2>
+#此処から先はサモナー名を入れたら使える
+<div>
+	<%= link_to "マッチング部屋作成", new_matching_path %>
+</div>
 
-<% current_user.teams.each do |team| %>
-<div><%= link_to team.name, team_path(team.id) %></div>
-<% end %>
-
-<% if !current_user.matching_queue %>
-<div><%= link_to "マッチング部屋作成", new_matching_path %></div>
-<% else %>
-<div><%= link_to "現在の部屋", matching_path(current_user.matching_queue) %></div>
-<% end %>
-
-<h2>サモナー情報</h2>
-<table border="1">
-  <% @summonerInfo.each do | key, val | %>
-  <tr>
-	<th><%= key %></th>
-	<th><%= val %></th>
-  </tr>
-  <% end %>
-  <tr>
-	<th>role</th>
-	<th><%= current_user.champion_role %></th>
-  </tr>
-</table>
+<div>
+	<%= link_to "マッチング部屋検索", search_matchings_path %>
+</div>

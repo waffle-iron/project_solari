@@ -1,4 +1,4 @@
-class AchievementsController < ApplicationController
+class AchievementsController < LoginController
   before_action :set_achievement, only: [:show, :edit, :update, :destroy]
 
   # GET /achievements

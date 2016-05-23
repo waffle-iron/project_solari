@@ -1,5 +1,4 @@
-class UsersController < ApplicationController
-
+class UsersController < LoginController
   before_action :set_team, only: [:show, :refresh]
 
 	def show
