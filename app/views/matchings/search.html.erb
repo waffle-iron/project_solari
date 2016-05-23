@@ -13,18 +13,18 @@
   <% unless @is_login %>
     <script type="text/javascript">
       document.getElementById("login_only").style = "background-color: gray";
+      document.write("<h2><center>please login!！</center></h2>")
     </script>
   <% else %>
-
-  <h1>summoner infomation</h1>
-  <table border="1">
-    <% @summonerInfo.each do | key, val | %>
-    <tr>
-      <th><%= key %></th>
-      <th><%= val %></th>
-    </tr>
-    <% end %>
-  </table>
+    <h1>summoner infomation</h1>
+    <table border="1">
+      <% @summonerInfo.each do | key, val | %>
+      <tr>
+        <th><%= key %></th>
+        <th><%= val %></th>
+      </tr>
+      <% end %>
+    </table>
   <% end %>
 
   <h1>create matchings</h1>
