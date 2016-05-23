@@ -1,4 +1,38 @@
-<%= form_for(@matching_search, url: search_matchings_path, html: {method: :get, class: "form-horizontal", role: 'form'}) do |f| %>
+<div id="not_login">
+  <h1>welcome summoner!</h1>
+  <div>
+    <%= form_tag(search_matchings_path, method: "get") do %>
+    <%= label_tag(:summoner_name, "summoner name:") %>
+    <%= text_field_tag(:summoner_name) %>
+    <%= submit_tag("login") %>
+    <% end %>
+  </div>
+</div>
+
+<div id="login_only">
+  <% unless @is_login %>
+    <script type="text/javascript">
+      document.getElementById("login_only").style = "background-color: gray";
+      document.write("<h2><center>please login!！</center></h2>")
+    </script>
+  <% else %>
+    <h1>summoner infomation</h1>
+    <table border="1">
+      <% @summonerInfo.each do | key, val | %>
+      <tr>
+        <th><%= key %></th>
+        <th><%= val %></th>
+      </tr>
+      <% end %>
+    </table>
+  <% end %>
+
+  <h1>create matchings</h1>
+  <%= link_to "マッチング作成", new_matching_path %>
+
+  <h1>search matchings</h1>
+
+  <%= form_for(@matching_search, url: search_matchings_path, html: {method: :get, class: "form-horizontal", role: 'form'}) do |f| %>
   <div class="field">
     <%= f.label :queue_type %><br>
     <%= f.select :queue_type, Matching.queue_types.keys.to_a, {}, class: 'form-control' %>
@@ -51,30 +85,30 @@
     <%= f.submit 'search', :name => 'search' %>
   </div>
 
-<% end %>
+  <% end %>
 
-<h1>Listing Matchings</h1>
+  <h1>Listing Matchings</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Queue type</th>
-      <th>Under30</th>
-      <th>Unranked</th>
-      <th>Bronze</th>
-      <th>Silver</th>
-      <th>Gold</th>
-      <th>Plutinum</th>
-      <th>Diamond</th>
-      <th>Master</th>
-      <th>Challenger</th>
-      <th>Deadline</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <table>
+    <thead>
+      <tr>
+        <th>Queue type</th>
+        <th>Under30</th>
+        <th>Unranked</th>
+        <th>Bronze</th>
+        <th>Silver</th>
+        <th>Gold</th>
+        <th>Plutinum</th>
+        <th>Diamond</th>
+        <th>Master</th>
+        <th>Challenger</th>
+        <th>Deadline</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <% @matchings.each do |matching| %>
+    <tbody>
+      <% @matchings.each do |matching| %>
       <tr>
         <td><%= matching.queue_type %></td>
         <td><%= matching.under30 %></td>
@@ -89,8 +123,8 @@
         <td><%= matching.deadline %></td>
         <td><%= link_to 'Show', matching %></td>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      <% end %>
+    </tbody>
+  </table>
 
-<br>
+</div>
