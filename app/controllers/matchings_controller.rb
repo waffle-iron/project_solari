@@ -1,6 +1,8 @@
 class MatchingsController < ApplicationController
   before_action :set_matching, only: [:show, :edit, :update, :destroy, :join]
 
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   # GET /matchings
   # GET /matchings.json
   def index
@@ -96,6 +98,15 @@ class MatchingsController < ApplicationController
   end
 
   def search
+    @is_login = false
+    if params.include?(:summoner_name)
+      @is_login = true
+      search_summoner(params[:summoner_name])
+    elsif not current_user.nil?
+      @is_login = true
+      search_summoner(current_user.summoner_name)
+    end
+
     @matching_search = Search::Matching.new
     if(params[:search_matching])
       @matchings = Search::Matching.new(search_params)
@@ -119,4 +130,13 @@ class MatchingsController < ApplicationController
     def matching_params
       params.require(:matching).permit(:queue_type, :under30, :unranked, :bronze, :silver, :gold, :plutinum, :diamond, :master, :challenger, :deadline)
     end
+
+    def search_summoner(summoner_name)
+      client = Taric.client(region: :jp)
+      data = client.summoners_by_names(summoner_names: summoner_name)
+      if data.body.include?(summoner_name)
+        @summonerInfo = data.body[summoner_name]
+      end
+    end
+
 end

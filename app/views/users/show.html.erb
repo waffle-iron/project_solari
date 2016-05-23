@@ -86,6 +86,19 @@
   </div>
 </p>
 
+<table border="1">
+  <% @summonerInfo.each do | key, val | %>
+  <tr>
+	<th><%= key %></th>
+	<th><%= val %></th>
+  </tr>
+  <% end %>
+  <tr>
+	<th>role</th>
+	<th><%= current_user.champion_role %></th>
+  </tr>
+</table>
+
 <% if @user.matching_queue %>
 	<div><%= link_to "現在の部屋", matching_path(@user.matching_queue.matching_id) %></div>
 <% end %>
