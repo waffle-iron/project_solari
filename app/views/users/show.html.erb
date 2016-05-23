@@ -99,11 +99,6 @@
   </tr>
 </table>
 
-<% if @user.matching_queue %>
-	<div><%= link_to "現在の部屋", matching_path(@user.matching_queue.matching_id) %></div>
-<% end %>
-
-
 <table>
 <tr>
 <% @games.each do |game| %>
@@ -115,12 +110,12 @@
 <p>
 	<strong>Achievements</strong>
 	<div class="container">
-    <div class="row">
-			<% @user.achievements.each do |achievement| %>
-				<div class="col-xs-6 col-md-3">
-					<%= render :partial => 'achievements/achievement_small_fragment' , :locals => {achievement: achievement} %>
-				</div>
-			<% end %>
-		</div>
+	<div class="row">
+		<% @user.achievements.each do |achievement| %>
+			<div class="col-xs-6 col-md-3">
+				<%= render :partial => 'achievements/achievement_small_fragment' , :locals => {achievement: achievement} %>
+			</div>
+		<% end %>
+	</div>
 	</div>
 </p>
