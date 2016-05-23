@@ -1,3 +1,22 @@
+<h1>welcome summoner!</h1>
+<div>
+	<%= form_tag(search_matchings_path, method: "get") do %>
+		<%= label_tag(:summoner_name, "summoner name:") %>
+		<%= text_field_tag(:summoner_name) %>
+		<%= submit_tag("login") %>
+	<% end %>
+</div>
+
+<% @summonerInfo %>
+
+<% if @is_login %>
+<h1>summoner infomation</h1>
+<% p @summonerInfo %>
+<%= @summonerInfo["id"] %>
+<% end %>
+
+<h1>search matchings</h1>
+
 <%= form_for(@matching_search, url: search_matchings_path, html: {method: :get, class: "form-horizontal", role: 'form'}) do |f| %>
   <div class="field">
     <%= f.label :queue_type %><br>

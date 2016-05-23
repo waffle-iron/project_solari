@@ -96,6 +96,11 @@ class MatchingsController < ApplicationController
   end
 
   def search
+    @is_login = false
+    if params.include? :summoner_name
+      search_summoner(params[:summoner_name])
+    end
+
     @matching_search = Search::Matching.new
     if(params[:search_matching])
       @matchings = Search::Matching.new(search_params)
@@ -119,4 +124,15 @@ class MatchingsController < ApplicationController
     def matching_params
       params.require(:matching).permit(:queue_type, :under30, :unranked, :bronze, :silver, :gold, :plutinum, :diamond, :master, :challenger, :deadline)
     end
+
+    def search_summoner(summoner_name)
+      client = Taric.client(region: :jp)
+      data = client.summoners_by_names(summoner_names: summoner_name)
+      p data.body
+      if data.body.include?(summoner_name)
+        @is_login = true
+        @summonerInfo = data.body[summoner_name]
+      end
+    end
+
 end
