@@ -15,4 +15,8 @@ WebsocketRails::EventMap.describe do
   subscribe :client_connected, to: WebsocketChatController, with_method: :connect_user
   subscribe :new_message, to: WebsocketChatController, with_method: :new_message
 
+  subscribe :client_connected, to: WebsocketMatchingController, with_method: :connect_user
+  subscribe :role_changed, to: WebsocketMatchingController, with_method: :role_changed
+  subscribe :exit_room, to: WebsocketMatchingController, with_method: :exit_room
+
 end

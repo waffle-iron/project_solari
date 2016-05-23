@@ -56,6 +56,17 @@
     <%= f.label :deadline %><br>
     <%= f.datetime_select :deadline %>
   </div>
+
+
+  <%= fields_for matching_queue do |f| %>
+    <%= f.text_field :summoner_name %>
+    <%= f.check_box :top %>
+    <%= f.check_box :mid %>
+    <%= f.check_box :bot %>
+    <%= f.check_box :sup %>
+    <%= f.check_box :jg %>
+  <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>

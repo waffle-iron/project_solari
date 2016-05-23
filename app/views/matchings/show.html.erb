@@ -55,33 +55,41 @@
   <%= @matching.deadline %>
 </p>
 
+<!-- save token of current member -->
+<div id="current_token" style="display:none;"><%= @current_token %></div>
+
 <strong>Queue_people</strong>
-<% @matching.matching_queues.each do |queue| %>
+<% @matching.get_member_array.each_with_index do |member, index| %>
 <p>
-  <%= link_to queue.user.user_name, user_path(queue.user) %>
-    <% if queue.user == current_user %>
-    <%= fields_for queue do |queue_role| %>
-    <div class="field">
-      <%= queue_role.label :primary_role %><br>
-      <%= queue_role.select :primary_role, MatchingQueue.primary_roles.keys.to_a, {}, class: 'form-control' %>
-    </div>
-    <div class="field">
-      <%= queue_role.label :secondary_role %><br>
-      <%= queue_role.select :secondary_role, MatchingQueue.secondary_roles.keys.to_a, {}, class: 'form-control' %>
-    </div>
-    <div class="actions">
-      <%= f.submit 'Join Queue', :name => 'join' %>
-    </div>
-  <% else %>
-    <%= queue.primary_role %>
-    <%= queue.secondary_role %>
-  <% end %>
-</p>
+  <div id= "<%= "summoner_name" + (index+1).to_s %>" ><%= member.summoner_name %></div>
+    <% if flash[:current_token] && member.token == flash[:current_token]%>
+      <div id="matching" data-uri="<%= request.host %>:3000/websocket">
+        <!-- give values to coffeescript -->
+        <div id="matching_id" style="display:none;"><%= @matching.id %></div>
+        <div id="token" style="display:none;"><%= flash[:current_token] %></div>
+        <%= form_for(@matching) do |f| %>
+          <%= fields_for member do |f| %>
+            <%= f.check_box :top %>
+            <%= f.check_box :mid %>
+            <%= f.check_box :bot %>
+            <%= f.check_box :sup %>
+            <%= f.check_box :jg %>
+          <% end %>
+          <div>
+            <input type="button" class="btn btn-primary" id="send_rolechange" value="change_queue"/>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div id="top<%= (index + 1).to_s %>"><%= member.top %></div>
+      <div id="mid<%= (index + 1).to_s %>"><%= member.mid %></div>
+      <div id="bot<%= (index + 1).to_s %>"><%= member.bot %></div>
+      <div id="jg<%= (index + 1).to_s %>"><%= member.jg %></div>
+      <div id="sup<%= (index + 1).to_s %>"><%= member.sup %></div>
+    <% end %>
+    </p>
 <% end %>
 
-<% if !current_user.matching_queue %>
 <%= link_to 'Join', join_matching_path(@matching) %>
-<% end %>
-
 <%= link_to 'Edit', edit_matching_path(@matching) %>
 <%= link_to 'Back', matchings_path %>

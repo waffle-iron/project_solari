@@ -1,20 +1,8 @@
-class MatchingQueue < ActiveRecord::Base
-  enum primary_role: { fill_primary: 0, bot_primary: 1, support_primary: 2, mid_primary: 3, top_primary: 4, jungle_primary: 5}
-  enum secondary_role: { fill_secondary: 0, bot_secondary: 1, support_secondary: 2, mid_secondary: 3, top_secondary: 4, jungle_secondary: 5, none_secondary: 6}
-  belongs_to :user
-  belongs_to :matching
+class MatchingQueue
 
-  validate :queue_num_cannot_be_more_then_five, :user_dont_have_matching
+  include ActiveModel::Model
 
-  def queue_num_cannot_be_more_then_five
-    if matching.matching_queues.size >= 5
-      errors.add(:excess_num, "queue is full!")
-    end
-  end
+  # Formで使用するプロパティを定義する
+  attr_accessor :summoner_name, :top, :mid, :bot, :sup, :jg, :token, :rank, :is_owner
 
-  def user_dont_have_matching
-    if user.matching_queue != self
-      errors.add(:already_in_queue, "already in queue!")
-    end
-  end
 end

@@ -58,6 +58,6 @@ unsubscribe = ->
 subscribe = ->
   window.chatClass.subscribe()
 
-$(document).ready(init)
-$(document).on("page:before-change", unsubscribe)
-$(document).on("page:change", subscribe)
+#$(document).ready(init)
+#$(document).on("page:before-change", unsubscribe)
+#$(document).on("page:change", subscribe)

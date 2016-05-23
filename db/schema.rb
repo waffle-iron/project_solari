@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517080531) do
+ActiveRecord::Schema.define(version: 20160523043823) do
 
   create_table "achievement_users", force: :cascade do |t|
     t.integer  "achievement_id", limit: 4
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 20160517080531) do
   end
 
   create_table "matchings", force: :cascade do |t|
-    t.integer  "queue_type", limit: 4
+    t.integer  "queue_type",            limit: 4
     t.boolean  "under30"
     t.boolean  "unranked"
     t.boolean  "bronze"
@@ -102,13 +102,48 @@ ActiveRecord::Schema.define(version: 20160517080531) do
     t.boolean  "master"
     t.boolean  "challenger"
     t.datetime "deadline"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.integer  "top_point",  limit: 4
-    t.integer  "mid_point",  limit: 4
-    t.integer  "bot_point",  limit: 4
-    t.integer  "sup_point",  limit: 4
-    t.integer  "jg_point",   limit: 4
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.string   "member1_summoner_name", limit: 255
+    t.string   "member1_token",         limit: 255
+    t.string   "member1_rank",          limit: 255
+    t.string   "member2_summoner_name", limit: 255
+    t.string   "member2_token",         limit: 255
+    t.string   "member2_rank",          limit: 255
+    t.string   "member3_summoner_name", limit: 255
+    t.string   "member3_token",         limit: 255
+    t.string   "member3_rank",          limit: 255
+    t.string   "member4_summoner_name", limit: 255
+    t.string   "member4_token",         limit: 255
+    t.string   "member4_rank",          limit: 255
+    t.string   "member5_summoner_name", limit: 255
+    t.string   "member5_token",         limit: 255
+    t.string   "member5_rank",          limit: 255
+    t.boolean  "member1_top",                       default: false, null: false
+    t.boolean  "member2_top",                       default: false, null: false
+    t.boolean  "member3_top",                       default: false, null: false
+    t.boolean  "member4_top",                       default: false, null: false
+    t.boolean  "member5_top",                       default: false, null: false
+    t.boolean  "member1_mid",                       default: false, null: false
+    t.boolean  "member2_mid",                       default: false, null: false
+    t.boolean  "member3_mid",                       default: false, null: false
+    t.boolean  "member4_mid",                       default: false, null: false
+    t.boolean  "member5_mid",                       default: false, null: false
+    t.boolean  "member1_bot",                       default: false, null: false
+    t.boolean  "member2_bot",                       default: false, null: false
+    t.boolean  "member3_bot",                       default: false, null: false
+    t.boolean  "member4_bot",                       default: false, null: false
+    t.boolean  "member5_bot",                       default: false, null: false
+    t.boolean  "member1_sup",                       default: false, null: false
+    t.boolean  "member2_sup",                       default: false, null: false
+    t.boolean  "member3_sup",                       default: false, null: false
+    t.boolean  "member4_sup",                       default: false, null: false
+    t.boolean  "member5_sup",                       default: false, null: false
+    t.boolean  "member1_jg",                        default: false, null: false
+    t.boolean  "member2_jg",                        default: false, null: false
+    t.boolean  "member3_jg",                        default: false, null: false
+    t.boolean  "member4_jg",                        default: false, null: false
+    t.boolean  "member5_jg",                        default: false, null: false
   end
 
   create_table "roles", force: :cascade do |t|
